@@ -1,11 +1,129 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Welcome</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacoblog</title>
+  <style>
+    /* Base styling */
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      display: flex;
+      flex-direction: row;
+      min-height: 100vh;
+    }
+
+    /* Sidebar */
+    .sidebar {
+      flex: 0 0 300px;
+      padding: 2rem;
+      background-color: #f5f5f5;
+      border-right: 1px solid #ddd;
+    }
+
+    .sidebar h1, .sidebar h2, .sidebar h3 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .sidebar p, .sidebar a {
+      font-size: 0.9rem;
+      margin: 0.25rem 0;
+      word-break: break-word;
+    }
+
+    .sidebar ul {
+      margin-top: 1rem;
+      padding-left: 1rem;
+    }
+
+    /* Main content */
+    .main {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    .post-link {
+      margin-bottom: 1.5rem;
+    }
+
+    .post-link a {
+      font-size: 1.2rem;
+      color: #0066cc;
+      text-decoration: none;
+    }
+
+    .post-link a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive for mobile */
+    @media (max-width: 768px) {
+      body {
+        flex-direction: column;
+      }
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Welcome to Jacob’s Blog</h1>
-  <p>Hello, world.</p>
+  <!-- Sidebar / Identity Block -->
+  <aside class="sidebar">
+    <h2>Jacob Mages-Haskins</h2>
+    <h3>Principal Software Engineer</h3>
+    <p>Contrast Security, Inc.</p>
+
+    <p><a href="mailto:jacobmages-haskins@outlook.com">jacobmages-haskins@outlook.com</a></p>
+    <p><a href="https://www.linkedin.com/in/jacob-haskins/" target="_blank">LinkedIn Profile</a></p>
+
+    <p style="margin-top: 2rem; font-style: italic;">
+      Notice:<br />
+      This is my personal technical blog. Any views expressed herein are my own and not representative of my employer.
+    </p>
+
+    <!-- Blog roll placeholder -->
+    <ul>
+      <li>Sample Category
+        <ul>
+          <li><a href="#">Link 1</a></li>
+          <li><a href="#">Link 2</a></li>
+        </ul>
+      </li>
+      <!-- Add more nested ul tags here -->
+    </ul>
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main">
+    <section class="post-link">
+      <a href="/posts/welcome.html">Welcome to My Blog</a>
+    </section>
+    <section class="post-link">
+      <a href="/posts/ai-thoughts-on-llms.html">AI Thoughts on LLMs</a>
+    </section>
+    <!-- Add more post links here -->
+  </main>
+
+  <!-- Optional: Giscus Comment Section -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="yourusername/jacoblog"
+    data-repo-id="REPO_ID"
+    data-category="Post Comments"
+    data-category-id="CATEGORY_ID"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
 </body>
 </html>

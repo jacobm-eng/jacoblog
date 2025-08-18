@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacoblog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Sidebar / Identity Block -->
+  <aside class="sidebar">
+    <h2>Jacob Mages-Haskins</h2>
+    <h3>Principal Software Engineer</h3>
+    <p>Contrast Security, Inc.</p>
+
+    <p><a href="mailto:jacobmages-haskins@outlook.com">jacobmages-haskins@outlook.com</a></p>
+    <p><a href="https://www.linkedin.com/in/jacob-haskins/" target="_blank">LinkedIn Profile</a></p>
+
+    <p style="margin-top: 2rem; font-style: italic;">
+      Notice:<br />
+      This is my personal technical blog. Any views expressed herein are my own and not representative of my employer.
+    </p>
+
+    <p>
+      <a href="index.html">Home</a>
+    </p>
+
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main">
+  <h1>AI Features in Popular Cybersecurity Platforms</h1>
+  <p><i>August 17, 2025</i></p>
+
+<table border="1" cellpadding="6" cellspacing="0" style="border-collapse:collapse; width:100%; font-family:system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; font-size:14px;">
+  <thead style="background:#f4f4f4;">
+    <tr>
+      <th>Vendor</th>
+      <th>AI Autofix (code)</th>
+      <th>Explain / Triage AI</th>
+      <th>Agentic / Assistant</th>
+      <th>AI Rule Authoring</th>
+      <th>IDE-native Fix</th>
+      <th>Auto PR / MR</th>
+      <th>SCA AI automation</th>
+      <th>Model / Hosting notes</th>
+      <th>Sources</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Contrast</strong></td>
+      <td><strong>SmartFix</strong> generates fixes from Assess findings</td>
+      <td><strong>Intelligent Remediation Guidance</strong> (framework-aware)</td>
+      <td><strong>MCP Server</strong> exposes Contrast data to IDE agents</td>
+      <td>—</td>
+      <td>Via agents/IDE through MCP; primary flow is PR via GH Action</td>
+      <td>Yes (GitHub Action opens PRs)</td>
+      <td>Standard SCA; no public AI auto-upgrade PRs</td>
+      <td>IRG routes to Anthropic via AWS Bedrock; SmartFix is BYO-LLM</td>
+      <td>:contentReference[oaicite:0]{index=0}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Snyk</strong></td>
+      <td><strong>Agent Fix</strong> one-click fixes (IDE/PR), validated by engine</td>
+      <td>Issue summaries & prioritization integrated in platform</td>
+      <td>DeepCode AI experiences across Snyk Code</td>
+      <td>—</td>
+      <td>Yes (IDE + PR)</td>
+      <td>Yes for dependencies (auto fix/upgrade PRs across SCMs)</td>
+      <td>Yes (auto upgrade PRs for OSS)</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:1]{index=1}</td>
+    </tr>
+
+    <tr>
+      <td><strong>GitHub (GHAS + Copilot)</strong></td>
+      <td><strong>Copilot Autofix</strong> for CodeQL alerts</td>
+      <td>Explains alerts; inline suggestions</td>
+      <td>Copilot in security workflows</td>
+      <td>—</td>
+      <td>Yes (PR UI)</td>
+      <td>Suggestions in PR; not auto-PR by default</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:2]{index=2}</td>
+    </tr>
+
+    <tr>
+      <td><strong>GitLab</strong></td>
+      <td><strong>Duo</strong> can propose fixes; “Resolve with AI”</td>
+      <td>“Explain this vulnerability”</td>
+      <td>Duo Chat / security path</td>
+      <td>—</td>
+      <td>Yes (MR UI)</td>
+      <td>Yes (auto-generate MRs with suggestions)</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:3]{index=3}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Veracode</strong></td>
+      <td><strong>Fix</strong> (AI remediation; 10+ languages)</td>
+      <td>Guidance + learning content</td>
+      <td>—</td>
+      <td>—</td>
+      <td>Yes (IDE & CI integrations)</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:4]{index=4}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Synopsys</strong></td>
+      <td><strong>Polaris Assist</strong> suggests fixes</td>
+      <td>AI summaries for SAST findings</td>
+      <td>Polaris Assist assistant</td>
+      <td>—</td>
+      <td>In-product; IDE mention not emphasized</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:5]{index=5}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Checkmarx</strong></td>
+      <td><strong>One Assist</strong> (agentic prevention/detection/correction)</td>
+      <td>Explainers & guidance</td>
+      <td>One Assist agent</td>
+      <td><strong>AI Query Builder</strong> (NL→CxQL)</td>
+      <td>Yes (platform/IDE integrations)</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:6]{index=6}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Fortify (OpenText)</strong></td>
+      <td><strong>Aviator</strong> suggests code fixes for SAST</td>
+      <td>Explains issues; TP/FP auditing (LLM)</td>
+      <td>Aviator assistant</td>
+      <td>—</td>
+      <td>Embedded in dev env</td>
+      <td>—</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:7]{index=7}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Semgrep</strong></td>
+      <td>Assistant proposes remediation snippets</td>
+      <td>AI triage & explanations</td>
+      <td>Semgrep Assistant</td>
+      <td>— (rules remain code-based)</td>
+      <td>Yes (PR/MR comments)</td>
+      <td>Suggestions in PR; not auto-PR</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:8]{index=8}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Sonatype</strong></td>
+      <td>— (focus is OSS risk)</td>
+      <td>Explains & recommends upgrades</td>
+      <td>AI features inside Nexus Platform</td>
+      <td>—</td>
+      <td>—</td>
+      <td><strong>Yes</strong> (Lifecycle auto remediation PRs)</td>
+      <td><strong>Yes</strong> (auto upgrade PRs; firewalling)</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:9]{index=9}</td>
+    </tr>
+
+    <tr>
+      <td><strong>Apiiro</strong></td>
+      <td><strong>AutoFix Agent</strong> (context-aware fixes)</td>
+      <td>Risk-aware prioritization</td>
+      <td>Agentic orchestration across SDLC</td>
+      <td>—</td>
+      <td>Developer-workflow integrations</td>
+      <td>MR/PR creation as part of flow (platform-driven)</td>
+      <td>—</td>
+      <td>—</td>
+      <td>:contentReference[oaicite:10]{index=10}</td>
+    </tr>
+  </tbody>
+</table>
+
+
+  </main>
+
+  <!-- Optional: Giscus Comment Section -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="yourusername/jacoblog"
+    data-repo-id="REPO_ID"
+    data-category="Post Comments"
+    data-category-id="CATEGORY_ID"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacoblog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Sidebar / Identity Block -->
+  <aside class="sidebar">
+    <h2>Jacob Mages-Haskins</h2>
+    <h3>Principal Software Engineer</h3>
+    <p>Contrast Security, Inc.</p>
+
+    <p><a href="mailto:jacobmages-haskins@outlook.com">jacobmages-haskins@outlook.com</a></p>
+    <p><a href="https://www.linkedin.com/in/jacob-haskins/" target="_blank">LinkedIn Profile</a></p>
+
+    <p style="margin-top: 2rem; font-style: italic;">
+      Notice:<br />
+      This is my personal technical blog. Any views expressed herein are my own and not representative of my employer.
+    </p>
+
+    <p>
+      <a href="index.html">Home</a>
+    </p>
+
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main">
+  <h1>The 2025 AI Agent Stack: A Field Guide for Builders</h1>
+  <p><i>August 17, 2025</i></p>
+  <p>ChatGPT helped generate this list of AI Agent technologies.  There are variety of tools for the same job currently.  It will be interesting to see which ones stand the test of time, especially since there are already 'layers' of technology emergin for building AI Agents.</p>
+  <h2>Agent Frameworks & SDKs (code-first building blocks)</h2>
+  <ul>
+  <li><b>OpenAI Agents SDK (Python & TypeScript)</b> — Minimal, model-native primitives for single or multi-agent flows, tools, state, and patterns. Ships with examples and MCP support. ([OpenAI GitHub][1], [GitHub][2], [OpenAI][3])</li>
+  <li><b>LangGraph (by LangChain)</b> — Graph/state-machine orchestration for long-running, stateful agents; great for controllable loops, recovery, and human-in-the-loop. LangGraph Studio adds a visual IDE. ([LangChain AI][4], [LangChain Docs][5])</li>
+  <li><b>LlamaIndex Workflows & Agents</b> — Event-driven “Workflows” and multi-agent patterns that span RAG, extraction, and tools. ([LlamaIndex][6], [LlamaIndex][7])</li>
+  <li><b>AG2 (formerly AutoGen)</b> — Multi-agent conversations and coordination (open governance). FastAgency helps productionize AG2 projects. ([GitHub][8], [Microsoft GitHub][9])</li>
+  <li><b>CrewAI</b> — “Crews” of specialist agents with roles, tools, and handoffs; solid docs and real-world patterns. ([CrewAI][10])</li>
+  <li><b>smolagents (Hugging Face)</b> — Lightweight, code-first agents that “think in code”; minimal abstractions, easy to read and hack. ([Hugging Face][11], [GitHub][12])</li>
+  <li><b>Semantic Kernel (Microsoft)</b> — Model-agnostic SDK with an Agent Framework and patterns across .NET, Python, and Java. ([Microsoft Learn][13])</li>
+  <li><b>Haystack Agents (deepset)</b> — Tool-using agents integrated into Haystack’s RAG/search pipelines with provider-agnostic chat models. ([Haystack Documentation][14])</li>
+  <li><b>PydanticAI</b> — Type-safe agents with Pythonic ergonomics; first-class multi-agent handoff patterns. ([Pydantic AI][15])</li>
+  <li><b>Vercel AI SDK (Agents)</b> — TS-first SDK for building agents and UIs in Next.js/Node, with guides for Gemini/OpenAI and deployment on Vercel. ([Vercel][16], [Google AI for Developers][17])</li>
+  <li><b>Agno (previously Phidata)</b> — Full-stack framework for multi-agent systems with memory/knowledge/tools; nice built-in UI. ([GitHub][18], [docs.phidata.com][19])</li>
+  <li><b>Langroid</b> — Research-friendly multi-agent Python framework (CMU/UW lineage) with strong RAG patterns. ([GitHub][20], [langroid.github.io][21])</li>
+  </ul>
+  <h2>Cloud Agent Services (managed orchestration)</h2>
+  <ul>
+  <li><b>Google Agent Development Kit (ADK)</b> — Modular, model-agnostic kit for building/deploying agents; integrates with Vertex AI Agent Builder & Agent Space. ([Google GitHub][22], [Google Cloud][23])</li>
+  <li><b>Vertex AI Agent Builder (Google Cloud)</b> — Suite for building, evaluating, and deploying multi-agent experiences (Agent Garden, templates, codelabs). ([Google Cloud][24], [Google Codelabs][25])</li>
+  <li><b>Agents for Amazon Bedrock</b> — Configure autonomous agents with knowledge bases, API action groups, and multi-agent collaboration. ([AWS Documentation][26], [Amazon Web Services, Inc.][27])</li>
+  <li><b>Azure AI Agent Service (Azure AI Foundry)</b> — Managed service to host/orchestrate agents with governance, tracing, and REST SDKs. ([Microsoft Learn][28])</li>
+  <li><b>Cohere Tool-Use & Agents</b> — Chat endpoint with function calling, multi-step planning, strict tool schemas, and enterprise deploys. ([Cohere Documentation][29])</li>
+  </ul>
+  <h2>Protocols & Connectors (standardizing tool access)</h2>
+  <ul>
+  <li><b>Model Context Protocol (MCP)</b> — Open protocol (Anthropic) that standardizes connecting LLMs to tools/data (think “USB-C for AI”). ([Anthropic][30], [Model Context Protocol][31])</li>
+  <li><b>MCP Toolbox for Databases (Google)</b> — Open-source MCP server exposing safe, typed DB tools (Cloud SQL, Spanner, BigQuery, Postgres, etc.). Great with ADK. ([GitHub][32], [Google Cloud][33], [Google APIs][34])</li>
+  </ul>
+  <h2>Execution & Browser Control (give agents hands)</h2>
+  <ul>
+  <li><b>E2B</b> — Secure cloud sandboxes so agents can run code (JS/Python SDKs), ideal for “code-interpreter” and tool-heavy tasks. ([E2B][35])</li>
+  <li><b>browser-use</b> — Playwright-powered browser agent & optional MCP server for real web automation. ([GitHub][36])</li>
+  <li><b>Composio</b> — Unified connectors/skills layer (250+ apps) with new Python/TS SDKs; plugs into popular agent frameworks. ([docs.composio.dev][37], [Composio][38])</li>
+  <li><b>Zapier Natural Language Actions (AI Actions)</b> — Natural-language API to 6000+ SaaS apps—handy for agents that must “do things” in your SaaS stack. ([Zapier Docs][39])</li>
+  </ul>
+  <h2>Realtime & Voice Agents (instant, multimodal UX)</h2>
+  <ul>
+  <li><b>OpenAI Realtime API</b> — Low-latency, speech-to-speech, multimodal interactions over WebRTC or WebSockets. ([OpenAI Platform][40])</li>
+  <li><b>LiveKit Agents</b> — Open-source framework + cloud for voice/video agents; mix-and-match STT/LLM/TTS providers; Python/Node SDKs. ([LiveKit Docs][41], [GitHub][42])</li>
+  <li><b>Vapi</b> — Developer platform for phone-call voice agents with pragmatic docs and provider integrations. ([Vapi][43])</li>
+  <li><b>Retell AI</b> — Production phone agents with prompt flows, custom voices, and analytics. ([Retell AI][44])</li>
+  </ul>
+  <h2>Guardrails & Structured Outputs (control and correctness)</h2>
+  <ul>
+  <li><b>NVIDIA NeMo Guardrails</b> — Programmable “rails” via Colang to steer topics/flows and intercept risky content. ([NVIDIA Docs][45])</li>
+  <li><b>Guardrails AI</b> — Input/Output “validators” hub and server to detect/mitigate risk categories in your agent pipelines. ([guardrails][46])</li>
+  <li><b>OpenAI Structured Outputs</b> — Enforce JSON Schema-validated responses for reliable tool calls and multi-step workflows. ([OpenAI Platform][47])</li>
+  <li><b>Outlines (structured generation)</b> — Constrain token generation to JSON/regex/grammar for hard guarantees; works with multiple backends. ([Dottxt AI][48], [LangChain][49])</li>
+  </ul>
+  <h2>Observability, Evals & Tracing (ship with confidence)</h2>
+  <ul>
+  <li><b>LangSmith</b> — Unified tracing/evals/monitoring for agent apps (works with or without LangChain). ([LangSmith][50], [LangChain][51])</li>
+  <li><b>Langfuse</b> — Open-source LLM engineering platform (traces, evals, prompts, metrics); self-host or cloud. ([Langfuse][52])</li>
+  <li><b>Arize Phoenix</b> — Open-source observability and evaluation for LLM/agent systems; strong experiment workflows. ([Arize AI][53])</li>
+  <li><b>AgentOps</b> — Agent-focused observability (session replays, metrics) with quick integrations for frameworks and even ADK. ([AgentOps][54], [GitHub][55], [Google GitHub][56])</li>
+  </ul>
+  <h2>Specialist Stacks (purpose-built agents)</h2>
+  <ul>
+  <li><b>OpenHands (developer agents)</b> — Open platform for software-engineering agents that read/write code, run commands, browse, and work against benchmarks. ([GitHub][57], [All Hands Docs][58])</li>
+  </ul>
+  <h2>How to choose (fast heuristics)</h2>
+  <ul>
+  <li><b>You want tight control (“leashed” step in a larger workflow):</b> Start with **OpenAI Agents SDK**, **PydanticAI**, or **LlamaIndex Workflows**. Add **Structured Outputs** and **NeMo Guardrails** for predictability. ([OpenAI GitHub][1], [Pydantic AI][15], [LlamaIndex][6], [OpenAI Platform][47], [NVIDIA Docs][45])</li>
+  <li><b>You need robust state machines & supervision:</b> <b>LangGraph</b> (optionally with LangGraph Studio) excels at explicit state, retries, and human checkpoints. ([LangChain AI][4], [LangChain Docs][5])</li>
+  <li><b>Enterprise managed service:</b> Pick your cloud: **Vertex AI Agent Builder** (+ **ADK**), **Azure AI Agent Service**, or **Agents for Bedrock** depending on stack/regulatory needs. ([Google Cloud][24], [Google GitHub][22], [Microsoft Learn][28], [AWS Documentation][26])</li>
+  <li><b>Your agent must actually do stuff in SaaS/tools:</b> Add **Composio** or **Zapier NLA** as a universal skill layer. ([docs.composio.dev][37], [Zapier Docs][39])</li>
+  <li><b>It must browse or run code safely:</b> Combine **browser-use** (web actions) with **E2B** (secure sandboxes). ([GitHub][36], [E2B][35])</li>
+  <li><b>You need voice now:</b> **LiveKit Agents** or **Vapi** for end-to-end realtime voice; **OpenAI Realtime** for the model side. ([LiveKit Docs][41], [Vapi][43], [OpenAI Platform][40])</li>
+  <li><b>Production discipline:</b> Instrument early with **LangSmith/Langfuse/Phoenix** and consider **AgentOps** for agent-specific replays. ([LangSmith][50], [Langfuse][52], [Arize AI][53], [AgentOps][54])</li>
+  <h2>References</h2>
+[1]: <a href="https://openai.github.io/openai-agents-python/agents/" target="_blank"> "Agents - OpenAI Agents SDK"</a><br/>
+[2]: <a href="https://github.com/openai/openai-agents-python" target="_blank"> "openai/openai-agents-python: A lightweight, powerful ..."</a><br/>
+[3]: <a href="https://openai.com/index/new-tools-for-building-agents/" target="_blank"> "New tools for building agents"</a><br/>
+[4]: <a href="https://langchain-ai.github.io/langgraph/" target="_blank"> "LangGraph - GitHub Pages"</a><br/>
+[5]: <a href="https://docs.langchain.com/langgraph-platform/langgraph-studio" target="_blank"> "Overview - Docs by LangChain"</a><br/>
+[6]: <a href="https://docs.llamaindex.ai/en/stable/workflows/" target="_blank"> "Workflows"</a><br/>
+[7]: <a href="https://www.llamaindex.ai/blog/introducing-agentic-document-workflows" target="_blank"> "Introducing Agentic Document Workflows"</a><br/>
+[8]: <a href="https://github.com/ag2ai" target="_blank"> "ag2ai"</a><br/>
+[9]: <a href="https://microsoft.github.io/autogen/0.2/" target="_blank"> "AutoGen 0.2 - Microsoft Open Source"</a><br/>
+[10]: <a href="https://docs.crewai.com/" target="_blank"> "Introduction - CrewAI"</a><br/>
+[11]: <a href="https://huggingface.co/docs/smolagents/en/index" target="_blank"> "smolagents"</a><br/>
+[12]: <a href="https://github.com/huggingface/smolagents" target="_blank"> "smolagents: a barebones library for agents that think in code."</a><br/>
+[13]: <a href="https://learn.microsoft.com/en-us/semantic-kernel/frameworks/agent/" target="_blank"> "Semantic Kernel Agent Framework"</a><br/>
+[14]: <a href="https://docs.haystack.deepset.ai/docs/agents" target="_blank"> "Agents - Haystack Documentation"</a><br/>
+[15]: <a href="https://ai.pydantic.dev/agents/" target="_blank"> "Agents"</a><br/>
+[16]: <a href="https://vercel.com/docs/ai-sdk" target="_blank"> "AI SDK"</a><br/>
+[17]: <a href="https://ai.google.dev/gemini-api/docs/vercel-ai-sdk-example" target="_blank"> "Market Research Agent with Gemini and the AI SDK by Vercel"</a><br/>
+[18]: <a href="https://github.com/agno-agi/agno" target="_blank"> "agno-agi/agno: Open-source framework for building multi ..."</a><br/>
+[19]: <a href="https://docs.phidata.com/" target="_blank"> "Phidata - Agno"</a><br/>
+[20]: <a href="https://github.com/langroid/langroid" target="_blank"> "langroid/langroid: Harness LLMs with Multi-Agent ..."</a><br/>
+[21]: <a href="https://langroid.github.io/langroid/" target="_blank"> "langroid - GitHub Pages"</a><br/>
+[22]: <a href="https://google.github.io/adk-docs/" target="_blank"> "Agent Development Kit - Google"</a><br/>
+[23]: <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-engine/develop/adk" target="_blank"> "Develop an Agent Development Kit agent | Generative AI ..."</a><br/>
+[24]: <a href="https://cloud.google.com/vertex-ai/generative-ai/docs/agent-builder/overview" target="_blank"> "Vertex AI Agent Builder overview"</a><br/>
+[25]: <a href="https://codelabs.developers.google.com/devsite/codelabs/building-ai-agents-vertexai" target="_blank"> "Building AI Agents with Vertex AI Agent Builder"</a><br/>
+[26]: <a href="https://docs.aws.amazon.com/bedrock/latest/userguide/agents.html" target="_blank"> "Automate tasks in your application using AI agents"</a><br/>
+[27]: <a href="https://aws.amazon.com/bedrock/agents/" target="_blank"> "Amazon Bedrock Agents"</a><br/>
+[28]: <a href="https://learn.microsoft.com/en-us/azure/ai-foundry/" target="_blank"> "Azure AI Foundry documentation"</a><br/>
+[29]: <a href="https://docs.cohere.com/docs/tool-use-overview" target="_blank"> "Basic usage of tool use (function calling)"</a><br/>
+[30]: <a href="https://docs.anthropic.com/en/docs/mcp" target="_blank"> "Model Context Protocol (MCP)"</a><br/>
+[31]: <a href="https://modelcontextprotocol.io/" target="_blank"> "Model Context Protocol: Introduction"</a><br/>
+[32]: <a href="https://github.com/googleapis/genai-toolbox" target="_blank"> "MCP Toolbox for Databases is an open source ..."</a><br/>
+[33]: <a href="https://cloud.google.com/blog/products/ai-machine-learning/new-mcp-integrations-to-google-cloud-databases" target="_blank"> "New MCP integrations to Google Cloud Databases"</a><br/>
+[34]: <a href="https://googleapis.github.io/genai-toolbox/getting-started/introduction/" target="_blank"> "Introduction | MCP Toolbox for Databases"</a><br/>
+[35]: <a href="https://e2b.dev/docs" target="_blank"> "E2B - Code Interpreting for AI apps"</a><br/>
+[36]: <a href="https://github.com/browser-use/browser-use" target="_blank"> "browser-use/browser-use: 🌐 Make websites accessible for ..."</a><br/>
+[37]: <a href="https://docs.composio.dev/" target="_blank"> "Composio Docs: Welcome to Composio"</a><br/>
+[38]: <a href="https://composio.dev/blog/new-sdk-preview" target="_blank"> "Our new SDK is in beta"</a><br/>
+[39]: <a href="https://docs.zapier.com/platform/reference/ai-actions" target="_blank"> "AI Actions"</a><br/>
+[40]: <a href="https://platform.openai.com/docs/guides/realtime" target="_blank"> "Realtime API Beta"</a><br/>
+[41]: <a href="https://docs.livekit.io/agents/" target="_blank"> "LiveKit Agents"</a><br/>
+[42]: <a href="https://github.com/livekit/agents" target="_blank"> "livekit/agents: A powerful framework for building realtime ..."</a><br/>
+[43]: <a href="https://docs.vapi.ai/quickstart/introduction" target="_blank"> "Vapi: Introduction"</a><br/>
+[44]: <a href="https://docs.retellai.com/" target="_blank"> "Retell AI: Introduction"</a><br/>
+[45]: <a href="https://docs.nvidia.com/nemo-guardrails/index.html" target="_blank"> "NVIDIA NeMo Guardrails"</a><br/>
+[46]: <a href="https://guardrailsai.com/docs/" target="_blank"> "Introduction | Your Enterprise AI needs Guardrails"</a><br/>
+[47]: <a href="https://platform.openai.com/docs/guides/structured-outputs" target="_blank"> "Structured model outputs - OpenAI API"</a><br/>
+[48]: <a href="https://dottxt-ai.github.io/outlines/" target="_blank"> "Outlines"</a><br/>
+[49]: <a href="https://python.langchain.com/docs/integrations/providers/outlines/" target="_blank"> "Outlines"</a><br/>
+[50]: <a href="https://docs.smith.langchain.com/" target="_blank"> "Get started with LangSmith | 🦜️🛠️ LangSmith"</a><br/>
+[51]: <a href="https://www.langchain.com/langsmith" target="_blank"> "LangSmith"</a><br/>
+[52]: <a href="https://langfuse.com/docs" target="_blank"> "Langfuse Documentation"</a><br/>
+[53]: <a href="https://arize.com/docs/phoenix" target="_blank"> "Arize Phoenix"</a><br/>
+[54]: <a href="https://www.agentops.ai/" target="_blank"> "AgentOps AI agents"</a><br/>
+[55]: <a href="https://github.com/AgentOps-AI/agentops" target="_blank"> "AgentOps-AI/agentops: Python SDK for AI agent monitoring ..."</a><br/>
+[56]: <a href="https://google.github.io/adk-docs/observability/agentops/" target="_blank"> "AgentOps - Agent Development Kit - Google"</a><br/>
+[57]: <a href="https://github.com/All-Hands-AI/OpenHands" target="_blank"> "OpenHands: Code Less, Make More"</a><br/>
+[58]: <a href="https://docs.all-hands.dev/" target="_blank"> "Introduction - All Hands Docs"</a><br/>
+  </main>
+
+  <!-- Optional: Giscus Comment Section -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="yourusername/jacoblog"
+    data-repo-id="REPO_ID"
+    data-category="Post Comments"
+    data-category-id="CATEGORY_ID"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
+</body>
+</html>

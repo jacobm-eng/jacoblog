@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jacoblog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Sidebar / Identity Block -->
+  <aside class="sidebar">
+    <h2>Jacob Mages-Haskins</h2>
+    <h3>Principal Software Engineer</h3>
+    <p>Contrast Security, Inc.</p>
+
+    <p><a href="mailto:jacobmages-haskins@outlook.com">jacobmages-haskins@outlook.com</a></p>
+    <p><a href="https://www.linkedin.com/in/jacob-haskins/" target="_blank">LinkedIn Profile</a></p>
+
+    <p style="margin-top: 2rem; font-style: italic;">
+      Notice:<br />
+      This is my personal technical blog. Any views expressed herein are my own and not representative of my employer.
+    </p>
+
+    <p>
+      <a href="index.html">Home</a>
+    </p>
+
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main">
+  <h1>AI News</h1>
+  <p><i>October 22, 2025</i></p>
+    <p><em>Note from Jacob:</em><br/> I had to take a break from AI News posts in mid-October because we had a frost for a few nights, 
+      which meant that the bulk of the garden needed to be harvested, and processed, and stored.  Things are more relaxed again now though!  
+      Below are links I've been collecting in the meantime.</p>
+    <p>First, some graphs:<br/>
+    <img src="ai-capitalization.png" alt="The current AI capitalization rate vs. the Dotcom era." /><br/>
+    <img src="ai-economy.png" alt="A visualization of the AI economy and various corporate interlinkages." />
+    </p>
+    <p>News items:
+  <ul>
+    <li>A few articles came out about coding with AI recently as well: 
+      <li>“Developers’ roles are evolving from manual coders to orchestrators of AI-driven development ecosystems” <a html="https://github.blog/ai-and-ml/the-developer-role-is-evolving-heres-how-to-stay-ahead/" target="_blank">The Developer Role is Evolving: Here's How to Stay Ahead</a></li>
+      <li>This is one dev’s process for organizing larger changes with “Spec-driven development”: <a href="https://github.blog/ai-and-ml/generative-ai/spec-driven-development-using-markdown-as-a-programming-language-when-building-with-ai/" target="_blank">Spec-driven Development</a></li>
+      <li>A16Z analysts detail the “Trillion-dollar dev stack”: <a href="https://a16z.com/the-trillion-dollar-ai-software-development-stack/" target="_blank">Trillion Dollar Software Stack</a></li>
+      <li>Steve Yegge eschewed spec-driven development to make "Beads", an issue/task tracker that your AI coding assistant can use.  <a href="https://steve-yegge.medium.com/the-beads-revolution-how-i-built-the-todo-system-that-ai-agents-actually-want-to-use-228a5f9be2a9" target="_blank">Beads blog post</a> <a href="https://github.com/steveyegge/beads" target="_blank">Beads Repo</a></li>    
+      <li>Anthropic has released "Skills" as a way for you to give Claude Code more capabilities: https://www.anthropic.com/news/skills</li>
+      <li>Here is a repo of Skills to give your Claude Code "Superpowers": <a href="https://github.com/obra/superpowers" target="_blank">Superpowers repo</a></li>
+      <li>One thing I’ve noticed with AI-assisted coding is that it is good at doing isolated small changes, but terrible when it has to do large multi-step changes across many areas of a project. My suspicion is that it is because humans are good at mentally managing nested abstractions while an LLM see all levels at the same time. I’ve experimented with developing a set of prompts to use to build-up a project spec from requirements to architecture to user stories to tasks for the AI, but even then the coding assistant still needs a bunch of supervision.</li>
+    </li>
+    <li>LangChain has a post up and the authn and authz needs for AI agents: <a href="https://blog.langchain.com/agent-authorization-explainer/" target="_blank">Agent Authorization Explainer</a></li>
+    <li>I found a new blog today: <a href="https://steipete.me/" target="_blank">Steipete</a>. He is a dev writing about AI too.</li>
+    <li>Andrej Karpathy released a new project that is a full pipeline for making a GPT-2 era clone of ChatGPT. <a href="https://x.com/karpathy/status/1977755427569111362" target="_blank">X Tweet</a> <a href="https://github.com/karpathy/nanochat" target="_blank">Nanochat Repo</a></li>
+    <li>Anthropic released Haiku 4.5, which may serve you as a lower cost coding alternative: <a href="https://www.anthropic.com/news/claude-haiku-4-5" target="_blank">Claude Haiku 4.5 release</a></li>
+    <li>A look at the true costs of deploying an AI agent at enterprise scale: <a href="https://medium.com/@balarampanda.ai/the-hidden-cost-of-ai-agents-why-free-isn-t-free-8251dfe5bd5c" target="_blank">The Hidden Cost of AI Agents</a></li>
+    <li>From the Harvard Business Review - business use cases greatly influence why agentic AI projects fail or succeed.  It specificly calls out "cybersecurity threat response" as one use case where agentic AI is indeed useful. <a href="https://hbr.org/2025/10/why-agentic-ai-projects-fail-and-how-to-set-yours-up-for-success" target="_blank">Why Agentic AI Projects Fail and How to Set Yours up for Success</a></li>
+  </ul>
+    </p>
+  </main>
+
+  <!-- Optional: Giscus Comment Section -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="yourusername/jacoblog"
+    data-repo-id="REPO_ID"
+    data-category="Post Comments"
+    data-category-id="CATEGORY_ID"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
+</body>
+</html>

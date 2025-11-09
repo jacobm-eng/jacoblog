@@ -22,17 +22,25 @@
       background: radial-gradient(1200px 800px at 10% -10%, var(--accent) 0%, var(--bg) 40%, var(--accent2) 100%);
       overflow: hidden;
     }
-    .controls {
+    .controls-container {
       position: fixed;
-      bottom: 14px;
-      right: 18px;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 25px;
+      background-color: #e0f2fe;  /* light blue bar */
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;  /* align text to right, change to center if preferred */
+      box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
+      padding-right: 16px;
+      z-index: 1000;  /* keeps it above slides */
+    }
+    
+    .controls {
       color: var(--text);
       font-size: 13px;
-      background-color: #e0f2fe;    /* light blue background */
-      border: 1px solid rgba(0,0,0,0.05);
-      padding: 6px 10px;
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      line-height: 1;
     }
     .deck {
       height: 100%;
@@ -227,7 +235,11 @@
     <div class="footer"><span>Slide 8</span><span>Thank you</span></div>
     </section>
   </div>
-  <div class="controls">Keyboard: ←/→, Space/Enter, or Click to advance</div>
+  <div class="controls-container">
+    <div class="controls">
+      Keyboard: ←/→, Space/Enter, or Click to advance
+    </div>
+  </div>
   <script>
     (function(){
       const slides = Array.from(document.querySelectorAll('.slide'));

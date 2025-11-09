@@ -42,7 +42,8 @@
     .slide.active { display: block; animation: fade 280ms ease-out; }
     @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0);} }
 
-    h1,h2 { margin: 0 0 10px 0; line-height: 1.1; font-size: clamp(20px, 2.1vw, 26px); color: var(--accent); }ng: 0.2px; color: #1f2937; }
+    h1,h2 { margin: 0 0 10px 0; line-height: 1.1; font-size: clamp(20px, 2.1vw, 26px); color: var(--accent); }
+    h1 { font-size: clamp(28px, 3.2vw, 40px); letter-spacing: 0.2px; color: #1f2937; }
     h2 { font-size: clamp(22px, 2.2vw, 30px); color: var(--accent); }
     p { color: var(--muted); font-size: clamp(15px, 1.3vw, 17px); margin: 8px 0 0; }
 
@@ -51,7 +52,7 @@
     .muted { color: var(--muted); }
     .row { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
     .kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-top: 12px; }
-    .chip { background: #f6f9ff; border: 1px solid var(--border); padding: 10px 12px; bor
+    .chip { background: #f6f9ff; border: 1px solid var(--border); padding: 10px 12px; border-radius: 10px; box-shadow: 0 1px 0 var(--shadow) inset; }
 
     .footer { position: absolute; bottom: 14px; left: 24px; right: 24px; display: flex; justify-content: space-between; color: var(--muted); font-size: 14px; }
     .controls { position: fixed; bottom: 14px; right: 18px; color: var(--muted); font-size: 13px; }

@@ -60,14 +60,23 @@
       margin-bottom: 1.5rem;
     }
     
+    /* Container that holds both the image and the text */
+    .intro {
+      display: flex;
+      align-items: center;        /* vertically centers the text with the photo */
+      gap: 2rem;                  /* space between photo and text */
+      margin-top: 1.5rem;
+    }
+    
+    /* reuse your existing headshot styling */
     .headshot img {
-      width: 140px;          /* adjust size as needed */
+      width: 140px;
       height: 140px;
-      border-radius: 50%;    /* makes it circular */
-      object-fit: cover;     /* crops neatly if aspect ratio differs */
-      border: 4px solid #ffffff;  /* clean white frame */
-      box-shadow: 0 4px 15px rgba(0,0,0,0.1); /* soft shadow */
-      background-color: #fff;  /* fallback for transparency */
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid #ffffff;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+      background-color: #fff;
     }
   </style>
 </head>
@@ -77,17 +86,24 @@
     <section class="slide active">
       <h2>ParentSquare AI Studio</h2>
       <h1>Building an Internal AI Agency</h1>
-      <div class="headshot">
-        <img src="headshot_2025.jpg" alt="Jacob Mages-Haskins headshot">
-      </div>
-      <div style="display: inline-block">
-        <p>Jacob M. — Candidate for Principal AI Solutions Lead</p>
-        <ul>
-          <li>Empower every team with practical, human‑centered AI</li>
-          <li>Start small → scale fast → measure impact</li>
-        </ul>
+    
+      <div class="intro">
+        <div class="headshot">
+          <img src="headshot_2025.jpg" alt="Jacob Mages-Haskins headshot">
         </div>
-      <div class="footer"><span>Slide 1</span><span>Arrows / Space / Click → Next</span></div>
+        <div class="intro-text">
+          <p>Jacob M. — Candidate for Principal AI Solutions Lead</p>
+          <ul>
+            <li>Empower every team with practical, human-centered AI</li>
+            <li>Start small → scale fast → measure impact</li>
+          </ul>
+        </div>
+      </div>
+    
+      <div class="footer">
+        <span>Slide 1</span>
+        <span>Arrows / Space / Click → Next</span>
+      </div>
     </section>
     
     <!-- 2. Mission Opportunity -->

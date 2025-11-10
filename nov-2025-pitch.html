@@ -23,6 +23,12 @@
       overflow: hidden;
     }
     
+    /* mobile stacking for headshot + text */
+    @media (max-width: 680px) {
+      .intro { flex-direction: column; align-items: flex-start; gap: 1rem; }
+      .headshot { margin-bottom: 0; }
+    }
+    
     .controls-container {
       position: fixed;
       bottom: 0;
@@ -60,6 +66,8 @@
       box-shadow: 0 20px 60px var(--shadow);
       display: none;
       position: relative;
+      /* prevent footer overlap with the 50px control bar */
+      padding-bottom: 64px;
     }
     .slide.active { display: block; animation: fade 280ms ease-out; }
     @keyframes fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0);} }
@@ -197,7 +205,7 @@
         <li><b>Deliver:</b> Move validated pilots to production with governance, audit logs, and analytics to measure ROI.</li>
         <li><b>Evangelize:</b> Document wins, train champions, and grow adoption through transparency and trust.</li>
       </ul>
-      <p class="muted">Early goals: meet team leads, quantify 3 biggest time sinks, ship 1 cross-functional pilot.”</p>
+      <p class="muted">Early goals: meet team leads, quantify 3 biggest time sinks, ship 1 cross-functional pilot.</p>
       
       <div class="footer">
         <span>Slide 4</span>
@@ -229,7 +237,7 @@
       <h1>Software Engineering Leader and AI Innovator</h1>
       <br />
       <ul>
-        <li><b>Proven AI Builder:</b>Shipped <i>Intelligent Remediation</i> and <i>SmartFix</i> to production.</li>
+        <li><b>Proven AI Builder:</b>Shipped <i> Intelligent Remediation</i> and <i>SmartFix</i> to production.</li>
         <li><b>Hands-On Engineering Leader:</b> SCRUM-certified; led multiple remote teams delivering mission-critical products on tight schedules with high quality.</li>
         <li><b>Privacy & Security Expertise:</b> Architected and implemented projects under HIPAA, PII, and cybersecurity constraints</li>
         <li><b>Education Industry:</b> Experience building software to support roles in higher-ed.</li>

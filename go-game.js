@@ -293,9 +293,9 @@ async function chooseAIMoveAsync(board, color, level, koKeyLast, onProgress, can
 
 // --- UI Components ------------------------------------------------------------
 function Stone({ color }) {
-  const cls = color === BLACK ? "tw-bg-black" : color === WHITE ? "tw-bg-white" : "";
-  const border = color === WHITE ? "tw-border tw-border-gray-400" : "";
-  return <div className={`tw-w-6 tw-h-6 tw-rounded-full ${cls} ${border}`}></div>;
+  const cls = color === BLACK ? "bg-black" : color === WHITE ? "bg-white" : "";
+  const border = color === WHITE ? "border border-gray-400" : "";
+  return <div className={`w-6 h-6 rounded-full ${cls} ${border}`}></div>;
 }
 
 function usePrevious(value) {
@@ -443,7 +443,7 @@ function App() {
     }
 
     return (
-      <svg width={gridPx} height={gridPx} className="tw-bg-amber-200 tw-rounded-xl tw-shadow-inner">
+      <svg width={gridPx} height={gridPx} className="bg-amber-200 rounded-xl shadow-inner">
         {lines}
         {starPts}
       </svg>
@@ -462,38 +462,38 @@ function App() {
   }
 
   return (
-    <div className="tw-min-h-screen tw-w-full tw-bg-slate-50 tw-text-slate-900 tw-p-4">
+    <div className="min-h-screen w-full bg-slate-50 text-slate-900 p-4">
       {notice && (
-        <div className="tw-fixed tw-top-4 tw-left-1/2 -tw-translate-x-1/2 tw-bg-slate-900 tw-text-white tw-px-4 tw-py-2 tw-rounded-xl tw-shadow-lg tw-z-50">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-4 py-2 rounded-xl shadow-lg z-50">
           {notice}
         </div>
       )}
-      <div className="tw-max-w-6xl tw-mx-auto tw-grid tw-grid-cols-1 lg:tw-grid-cols-5 tw-gap-4">
-        <div className="lg:tw-col-span-3">
-          <div className="tw-flex tw-items-center tw-justify-between tw-mb-2">
-            <h1 className="tw-text-2xl tw-font-semibold">Go (Weiqi) — Chinese Rules, Simple Ko</h1>
+      <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-5 gap-4">
+        <div className="lg:col-span-3">
+          <div className="flex items-center justify-between mb-2">
+            <h1 className="text-2xl font-semibold">Go (Weiqi) — Chinese Rules, Simple Ko</h1>
             <button
               onClick={() => newGame(size)}
-              className="tw-px-3 tw-py-1.5 tw-rounded-xl tw-bg-slate-900 tw-text-white tw-shadow hover:tw-opacity-90"
+              className="px-3 py-1.5 rounded-xl bg-slate-900 text-white shadow hover:opacity-90"
             >New Game</button>
           </div>
 
-          <div className="tw-relative tw-inline-block" onClick={handleBoardClick}>
+          <div className="relative inline-block" onClick={handleBoardClick}>
             <BoardGrid />
             {/* stones */}
             <div
-              className="tw-absolute tw-left-0 tw-top-0"
+              className="absolute left-0 top-0"
               style={{ width: gridPx, height: gridPx }}
             >
               {board.map((row, r) => (
-                <div key={r} className="tw-flex" style={{ height: cellSize }}>
+                <div key={r} className="flex" style={{ height: cellSize }}>
                   {row.map((v, c) => (
                     <div
                       key={c}
-                      className="tw-flex tw-items-center tw-justify-center"
+                      className="flex items-center justify-center"
                       style={{ width: cellSize, height: cellSize }}
                     >
-                      {v !== EMPTY && <div className={`tw-w-7 tw-h-7 tw-rounded-full ${v === BLACK ? "tw-bg-black" : "tw-bg-white tw-border tw-border-gray-400"}`} />}
+                      {v !== EMPTY && <div className={`w-7 h-7 rounded-full ${v === BLACK ? "bg-black" : "bg-white border border-gray-400"}`} />}
                     </div>
                   ))}
                 </div>
@@ -501,19 +501,19 @@ function App() {
             </div>
           </div>
 
-          <div className="tw-mt-3 tw-flex tw-items-center tw-gap-2">
-            <button onClick={passMove} className="tw-px-3 tw-py-1.5 tw-rounded-xl tw-bg-amber-500 tw-text-white tw-shadow disabled:tw-opacity-50" disabled={aiThinking || passes >= 2}>
+          <div className="mt-3 flex items-center gap-2">
+            <button onClick={passMove} className="px-3 py-1.5 rounded-xl bg-amber-500 text-white shadow disabled:opacity-50" disabled={aiThinking || passes >= 2}>
               Pass
             </button>
-            <button onClick={undo} className="tw-px-3 tw-py-1.5 tw-rounded-xl tw-bg-slate-200 tw-text-slate-900 tw-shadow disabled:tw-opacity-50" disabled={!history.length || aiThinking}>
+            <button onClick={undo} className="px-3 py-1.5 rounded-xl bg-slate-200 text-slate-900 shadow disabled:opacity-50" disabled={!history.length || aiThinking}>
               Undo
             </button>
-            <div className="tw-text-sm tw-text-slate-600 tw-ml-2 tw-flex tw-items-center tw-gap-2">
+            <div className="text-sm text-slate-600 ml-2 flex items-center gap-2">
               {aiThinking ? (
                 <>
                   <span>AI thinking… {aiProgress}%</span>
-                  <span className="tw-w-24 tw-h-2 tw-bg-slate-200 tw-rounded tw-overflow-hidden">
-                    <span style={{ width: `${aiProgress}%` }} className="tw-block tw-h-full tw-bg-amber-500 tw-transition-[width]" />
+                  <span className="w-24 h-2 bg-slate-200 rounded overflow-hidden">
+                    <span style={{ width: `${aiProgress}%` }} className="block h-full bg-amber-500 transition-[width]" />
                   </span>
                 </>
               ) : (
@@ -522,18 +522,18 @@ function App() {
             </div>
           </div>
 
-          <div className="tw-mt-2 tw-text-lg tw-font-medium">{resultText}</div>
+          <div className="mt-2 text-lg font-medium">{resultText}</div>
         </div>
 
-        <div className="lg:tw-col-span-2">
-          <div className="tw-bg-white tw-rounded-2xl tw-shadow tw-p-4 tw-space-y-4">
-            <h2 className="tw-text-xl tw-font-semibold">Settings</h2>
+        <div className="lg:col-span-2">
+          <div className="bg-white rounded-2xl shadow p-4 space-y-4">
+            <h2 className="text-xl font-semibold">Settings</h2>
 
-            <div className="tw-grid tw-grid-cols-2 tw-gap-3">
-              <label className="tw-block">
-                <span className="tw-text-sm tw-text-slate-600">Board Size</span>
+            <div className="grid grid-cols-2 gap-3">
+              <label className="block">
+                <span className="text-sm text-slate-600">Board Size</span>
                 <select
-                  className="tw-w-full tw-mt-1 tw-rounded-xl tw-border tw-p-2"
+                  className="w-full mt-1 rounded-xl border p-2"
                   value={size}
                   onChange={(e) => newGame(parseInt(e.target.value))}
                 >
@@ -543,18 +543,18 @@ function App() {
                 </select>
               </label>
 
-              <label className="tw-block">
-                <span className="tw-text-sm tw-text-slate-600">Komi (White)</span>
+              <label className="block">
+                <span className="text-sm text-slate-600">Komi (White)</span>
                 <input
-                  type="number" step="0.5" className="tw-w-full tw-mt-1 tw-rounded-xl tw-border tw-p-2" value={komi}
+                  type="number" step="0.5" className="w-full mt-1 rounded-xl border p-2" value={komi}
                   onChange={(e) => setKomi(parseFloat(e.target.value))}
                 />
               </label>
 
-              <label className="tw-block">
-                <span className="tw-text-sm tw-text-slate-600">You Play</span>
+              <label className="block">
+                <span className="text-sm text-slate-600">You Play</span>
                 <select
-                  className="tw-w-full tw-mt-1 tw-rounded-xl tw-border tw-p-2"
+                  className="w-full mt-1 rounded-xl border p-2"
                   value={humanColor}
                   onChange={(e) => { setHumanColor(parseInt(e.target.value)); newGame(size); }}
                 >
@@ -563,28 +563,28 @@ function App() {
                 </select>
               </label>
 
-              <label className="tw-block">
-                <span className="tw-text-sm tw-text-slate-600">AI Level</span>
+              <label className="block">
+                <span className="text-sm text-slate-600">AI Level</span>
                 <input
                   type="range" min={1} max={5} value={aiLevel}
                   onChange={(e) => setAiLevel(parseInt(e.target.value))}
-                  className="tw-w-full"
+                  className="w-full"
                 />
-                <div className="tw-text-sm">{aiLevel} / 5</div>
+                <div className="text-sm">{aiLevel} / 5</div>
               </label>
 
-              <label className="tw-block tw-flex tw-items-center tw-gap-2 tw-mt-1">
-                <input type="checkbox" checked={blitz} onChange={(e) => setBlitz(e.target.checked)} className="tw-w-4 tw-h-4" />
-                <span className="tw-text-sm tw-text-slate-600">Blitz mode (≈150ms/turn cap)</span>
+              <label className="block flex items-center gap-2 mt-1">
+                <input type="checkbox" checked={blitz} onChange={(e) => setBlitz(e.target.checked)} className="w-4 h-4" />
+                <span className="text-sm text-slate-600">Blitz mode (≈150ms/turn cap)</span>
               </label>
             </div>
 
-            <div className="tw-text-sm tw-text-slate-700 tw-leading-relaxed">
+            <div className="text-sm text-slate-700 leading-relaxed">
               <p><strong>Rules:</strong> Chinese/area scoring, simple-ko (no immediate repetition), no suicide. Two consecutive passes end the game; score shows stones + surrounded territory (White gets komi).</p>
-              <p className="tw-mt-2"><strong>Tips:</strong> Start on 9×9 for quick games. Level 1 moves are heuristic-only; Levels 2–5 add increasingly many Monte Carlo playouts.</p>
+              <p className="mt-2"><strong>Tips:</strong> Start on 9×9 for quick games. Level 1 moves are heuristic-only; Levels 2–5 add increasingly many Monte Carlo playouts.</p>
             </div>
 
-            <div className="tw-text-xs tw-text-slate-500">
+            <div className="text-xs text-slate-500">
               Built as a single-file demo — performance on 19×19 at high AI levels may vary by device.
             </div>
           </div>

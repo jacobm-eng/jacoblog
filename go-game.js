@@ -594,3 +594,5 @@ function usePrevious(value) {
     </div>
   );
 }
+
+window.App = App;

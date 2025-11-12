@@ -87,6 +87,7 @@
 #go-wrapper .rounded { border-radius: .25rem; }
 #go-wrapper .rounded-xl { border-radius: .75rem; }
 #go-wrapper .rounded-2xl { border-radius: 1rem; }
+#go-wrapper .rounded-full { border-radius: 9999px; }
 #go-wrapper .shadow { box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 1px 1px rgba(0,0,0,.06); }
 #go-wrapper .shadow-inner { box-shadow: inset 0 2px 4px rgba(0,0,0,.06); }
 #go-wrapper .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05); }

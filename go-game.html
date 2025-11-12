@@ -4,18 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jacoblog</title>
-  <!-- Tailwind config MUST come before the CDN script -->
+  <!-- 1) Tailwind config BEFORE the CDN script -->
   <script>
-    tailwind.config = {
-      prefix: 'tw-',
-      corePlugins: { preflight: false }
-    }
+    // Either form is fine; keeping both to cover CDN variations:
+    tailwind = { config: { prefix: 'tw-', corePlugins: { preflight: false } } };
+    // tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
   </script>
+  <!-- 2) Tailwind Play CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   
+  <!-- 3) Your site CSS (won’t get clobbered since preflight is off) -->
   <link rel="stylesheet" href="/styles.css" />
   
-  <!-- React + Babel (as you already had) -->
+  <!-- 4) React + ReactDOM + Babel -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>

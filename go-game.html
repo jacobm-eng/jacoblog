@@ -55,8 +55,11 @@
   -->
   <script type="text/babel" data-presets="react" src="go-game.js"></script>
   <script>
-    const root = ReactDOM.createRoot(document.getElementById('go-game'));
-    root.render(React.createElement(App));
+    (function mount() {
+      if (!window.App) { setTimeout(mount, 0); return; }
+      const root = ReactDOM.createRoot(document.getElementById('go-game'));
+      root.render(React.createElement(window.App));
+    })();
   </script>
 </body>
 </html>

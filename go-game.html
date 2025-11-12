@@ -4,21 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jacoblog</title>
-  <!-- 1) Tailwind config BEFORE the CDN script -->
-  <script>
-    // Either form is fine; keeping both to cover CDN variations:
-    tailwind = { config: { prefix: 'tw-', corePlugins: { preflight: false } } };
-    // tailwind.config = { prefix: 'tw-', corePlugins: { preflight: false } };
-  </script>
-  <!-- 2) Tailwind Play CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    /* Scope Tailwind utilities to descendants of [data-tw] only */
-    [data-tw] :where(.container, [class^="tw-"], [class*=" tw-"]) { all: revert; }
-  </style>
-
-  <!-- 3) Your site CSS (won’t get clobbered since preflight is off) -->
   <link rel="stylesheet" href="/styles.css" />
+  <link rel="stylesheet" href="/go-game.css">
   
   <!-- 4) React + ReactDOM + Babel -->
   <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>

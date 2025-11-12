@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useRef, useState } from "react";
+// import React, { useEffect, useMemo, useRef, useState } from "react";
 
 // Single‑file Go game (Chinese/area scoring, simple-ko).  
 // Features: 9x9 / 11x11 / 19x19, human vs AI (levels 1–5), choose color, pass, undo, live score.
@@ -304,7 +304,7 @@ function usePrevious(value) {
   return ref.current;
 }
 
-export default function App() {
+/*export default */function App() {
   const [size, setSize] = useState(9);
   const [board, setBoard] = useState(makeBoard(9));
   const [toPlay, setToPlay] = useState(BLACK);

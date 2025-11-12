@@ -1,0 +1,116 @@
+/* --- Minimal Go Game styles, fully scoped to #go-wrapper --- */
+#go-wrapper {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+#go-wrapper .min-h-screen { min-height: 100vh; }
+#go-wrapper .w-full { width: 100%; }
+#go-wrapper .block { display: block; }
+#go-wrapper .inline-block { display: inline-block; }
+#go-wrapper .flex { display: flex; }
+#go-wrapper .grid { display: grid; }
+#go-wrapper .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+#go-wrapper .lg\:grid-cols-5 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+@media (min-width: 1024px) {
+  #go-wrapper .lg\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  #go-wrapper .lg\:col-span-3 { grid-column: span 3 / span 3; }
+  #go-wrapper .lg\:col-span-2 { grid-column: span 2 / span 2; }
+}
+
+/* Positioning */
+#go-wrapper .relative { position: relative; }
+#go-wrapper .absolute { position: absolute; }
+#go-wrapper .fixed { position: fixed; }
+#go-wrapper .left-0 { left: 0; }
+#go-wrapper .top-0 { top: 0; }
+#go-wrapper .top-4 { top: 1rem; }
+#go-wrapper .left-1\/2 { left: 50%; transform: translateX(-50%); }
+#go-wrapper .z-50 { z-index: 50; }
+
+/* Spacing */
+#go-wrapper .p-4 { padding: 1rem; }
+#go-wrapper .p-2 { padding: .5rem; }
+#go-wrapper .px-3 { padding-left: .75rem; padding-right: .75rem; }
+#go-wrapper .px-4 { padding-left: 1rem; padding-right: 1rem; }
+#go-wrapper .py-1\.5 { padding-top: .375rem; padding-bottom: .375rem; }
+#go-wrapper .py-2 { padding-top: .5rem; padding-bottom: .5rem; }
+#go-wrapper .mt-1 { margin-top: .25rem; }
+#go-wrapper .mt-2 { margin-top: .5rem; }
+#go-wrapper .mt-3 { margin-top: .75rem; }
+#go-wrapper .mb-2 { margin-bottom: .5rem; }
+#go-wrapper .ml-2 { margin-left: .5rem; }
+#go-wrapper .gap-2 { gap: .5rem; }
+#go-wrapper .gap-4 { gap: 1rem; }
+#go-wrapper .space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1rem; }
+
+/* Sizing */
+#go-wrapper .w-6 { width: 1.5rem; }
+#go-wrapper .h-6 { height: 1.5rem; }
+#go-wrapper .w-7 { width: 1.75rem; }
+#go-wrapper .h-7 { height: 1.75rem; }
+#go-wrapper .w-24 { width: 6rem; }
+#go-wrapper .h-2 { height: .5rem; }
+#go-wrapper .h-full { height: 100%; }
+#go-wrapper .max-w-6xl { max-width: 72rem; }
+
+/* Flex alignment */
+#go-wrapper .items-center { align-items: center; }
+#go-wrapper .justify-between { justify-content: space-between; }
+
+/* Typography */
+#go-wrapper .text-sm { font-size: .875rem; line-height: 1.25rem; }
+#go-wrapper .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+#go-wrapper .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
+#go-wrapper .text-2xl { font-size: 1.5rem; line-height: 2rem; }
+#go-wrapper .font-medium { font-weight: 500; }
+#go-wrapper .font-semibold { font-weight: 600; }
+
+/* Colors */
+#go-wrapper .text-white { color: #fff; }
+#go-wrapper .text-slate-900 { color: #0f172a; }
+#go-wrapper .text-slate-700 { color: #334155; }
+#go-wrapper .text-slate-600 { color: #475569; }
+#go-wrapper .text-slate-500 { color: #64748b; }
+
+#go-wrapper .bg-white { background-color: #fff; }
+#go-wrapper .bg-black { background-color: #000; }
+#go-wrapper .bg-amber-200 { background-color: #fde68a; }
+#go-wrapper .bg-amber-500 { background-color: #f59e0b; }
+#go-wrapper .bg-slate-50 { background-color: #f8fafc; }
+#go-wrapper .bg-slate-200 { background-color: #e2e8f0; }
+#go-wrapper .bg-slate-900 { background-color: #0f172a; }
+
+#go-wrapper .border { border-width: 1px; border-style: solid; }
+#go-wrapper .border-gray-400 { border-color: #9ca3af; }
+
+/* Radius / shadows */
+#go-wrapper .rounded { border-radius: .25rem; }
+#go-wrapper .rounded-xl { border-radius: .75rem; }
+#go-wrapper .rounded-2xl { border-radius: 1rem; }
+#go-wrapper .shadow { box-shadow: 0 1px 2px rgba(0,0,0,.08), 0 1px 1px rgba(0,0,0,.06); }
+#go-wrapper .shadow-inner { box-shadow: inset 0 2px 4px rgba(0,0,0,.06); }
+#go-wrapper .shadow-lg { box-shadow: 0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05); }
+
+/* Display helpers */
+#go-wrapper .overflow-hidden { overflow: hidden; }
+#go-wrapper .block { display: block; }
+
+/* Centering and container helpers */
+#go-wrapper .mx-auto { margin-left: auto; margin-right: auto; }
+
+/* Transitions */
+#go-wrapper .transition-\[width\] { transition-property: width; transition-duration: .2s; }
+
+/* Opacity / hover / disabled */
+#go-wrapper .hover\:opacity-90:hover { opacity: .9; }
+#go-wrapper .disabled\:opacity-50:disabled { opacity: .5; }
+
+/* Additional misc styling */
+#go-wrapper button {
+  cursor: pointer;
+}
+#go-wrapper select,
+#go-wrapper input {
+  background-color: #fff;
+  color: #0f172a;
+}

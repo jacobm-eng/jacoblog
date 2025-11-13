@@ -35,12 +35,36 @@
 
   <!-- Main Content Area -->
   <main class="main">
-  <h1>Go Game</h1>
-  <p>I was struggling to find a free single-player Go gamer online that wasn't hobbled with ads or registrations so that I could teach my kids to play the game.  
-    So, I had GPT-5 generate this in ~30 minutes with a few rounds of refinemnets.  But then when I moved it to my personal blog here, it took about another hour to make the game's styles not clobber my default blog CSS styles, LOL.  
-    <br/>
-    Published November 11, 2025.</p>
-  <br/>
+  <p>Made with GPT-5.  Published November 11, 2025.</p>
+  <section class="go-rules">
+    <h2>How to Play Go</h2>
+    <p>
+      <strong>Go</strong> is an ancient strategy game for two players: Black and White.
+      The goal is simple—control more of the board than your opponent.
+    </p>
+  
+    <ul>
+      <li><strong>Turns:</strong> Players alternate placing one stone on any empty intersection.</li>
+      <li><strong>Capturing:</strong> A stone (or connected group) is captured and removed when all four surrounding intersections are occupied by the opponent’s stones.</li>
+      <li><strong>Passing:</strong> When neither player sees a useful move, they may <em>pass</em>. Two passes end the game.</li>
+    </ul>
+  
+    <h3>Scoring (Chinese Rules)</h3>
+    <p>
+      Each player earns <strong>one point</strong> for every stone they have on the board,
+      plus <strong>one point</strong> for each empty intersection completely surrounded by their stones.
+      White receives a small bonus called <em>komi</em> (usually 7.5 points) to compensate for going second.
+      The higher total wins.
+    </p>
+  
+    <h3>Tips</h3>
+    <ul>
+      <li>Start on a <strong>9×9</strong> board for faster games—19×19 is the full professional size.</li>
+      <li>Try to keep your groups alive with liberties rather than chasing captures early.</li>
+      <li>Corners are easier to secure than the center—expand from there.</li>
+    </ul>
+  </section>
+
   <!-- Put this around your game mount node -->
   <section id="go-wrapper" data-tw>
     <div id="go-game"></div>

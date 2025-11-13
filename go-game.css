@@ -115,3 +115,10 @@
   background-color: #fff;
   color: #0f172a;
 }
+
+/* Nudge stone overlay to align with SVG grid lines */
+#go-wrapper .stone-layer {
+  position: absolute;
+  top: 0.5rem;  /* adjust if needed — equals cellSize/2 (~18px for 36px cells) */
+  left: 0.5rem;
+}

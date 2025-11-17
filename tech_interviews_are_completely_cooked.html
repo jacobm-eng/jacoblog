@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta property="og:image" content="http://jacoblog.com/go-game.png">
+  <meta name="twitter:card" content="Go game screenshot.">
+  <title>Jacoblog</title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <!-- Sidebar / Identity Block -->
+  <aside class="sidebar">
+    <h2>Jacob Mages-Haskins</h2>
+    <h3>Principal Software Engineer</h3>
+    <p>Contrast Security, Inc.</p>
+
+    <p><a href="mailto:jacobmages-haskins@outlook.com">jacobmages-haskins@outlook.com</a></p>
+    <p><a href="https://www.linkedin.com/in/jacob-haskins/" target="_blank">LinkedIn Profile</a></p>
+
+    <p style="margin-top: 2rem; font-style: italic;">
+      Notice:<br />
+      This is my personal technical blog. Any views expressed herein are my own and not representative of my employer.
+    </p>
+
+    <p>
+      <a href="index.html">Home</a>
+    </p>
+
+  </aside>
+
+  <!-- Main Content Area -->
+  <main class="main">
+  <h1>Tech Interviews Are Completely Cooked</h1>
+  <p><i>November 15, 2025</i></p>
+  <p>On a recent Tuesday evening, I asked ChatGPT to build me a playable Go board in the browser. Two hours of back-and-forth later I had a working game with a Monte Carlo 
+  bot you can actually play against: <a href="http://jacoblog.com/go-game.html" target="_blank">http://jacoblog.com/go-game.html</a>.</p>
+  <p><img src="http://jacoblog.com/go-game.png" alt="Go game screenshot." /></p>
+  <p>That little side project broke my brain a bit.</p>
+  <p>Because if I can ship a decent game that fast, what on earth are we still doing with tech interview take-home projects that take eight, ten, or even sixteen hours? Why are we watching 
+  people pair-program on a whiteboard (or the Zoom equivalent) like it’s 2019? The magic AI screen overlays have won. Live coding interviews are officially performance art.</p>
+  <p>Even code reviews (the one thing I used to swear was still sacred) are getting weird. OpenAI’s Codex CLI now points out bugs in my personal projects that I genuinely didn’t know existed. 
+  Sometimes it’s wrong and I have to spend ten minutes proving why it’s wrong… which feels like arguing with a very confident junior who has read the entire internet.</p>
+  <p>For almost 20 years, my guidebook on hiring engineers has been Joel Spolsky’s <a href="https://www.joelonsoftware.com/2006/10/25/the-guerrilla-guide-to-interviewing-version-30/" target="_blank"><i>The Guerrilla Guide to Interviewing</i></a>. 
+  It’s brilliant, sagacious, humane, and basically boils down to: hire people who are (1) smart and (2) get things done.</p>
+  <p>I still believe that’s the timeless part. Most everything else in that article is now lovingly, respectfully wrong.</p>
+  <p>So I sat down to write the 2025 version, the one that might actually matter for the next decade or two, and immediately got nervous. Whatever I say today could look hilarious by 
+  Valentine’s Day let alone in 2 decades from now. But nonetheless, here’s my best swing at the topic while the iron’s still hot.</p>
+  <h2>My Current Best Guesses on Hiring Engineers in Late 2025</h2>
+  <ol>
+    <li><strong>You only hire a human when the backlog is bigger than “unlimited AI + current humans” can handle.</strong>
+     Notice the order. We crossed the “humans + AI” bridge sometime this year. The job of the human is now: vision, taste, glue work, talking to non-technical people, deciding what should exist, and unblocking things that AI still can’t unblock.</li>
+    <li><strong>Experience shipping real software is now the scarcest resource</strong> (and getting scarcer due to all the layoffs).
+     If you’re guarding a billion-dollar FinTech app, for example, you still need battle-tested humans who’ve felt the pager go off at 1 a.m. Be prepared to pay for that experience like it’s a rare Pokémon card. <br />  
+     The wild part? AI is also making it easier than ever for motivated people to rack up real experience — open-source contributions, weekend launches, whatever. The floor is higher and the ladder is shorter at the same time.</li>
+    <li><strong>Stop asking people to write code in interviews</strong> (unless your actual job forbids AI assistants, which is… niche).
+     Joel wanted one pointer/recursion question to separate the real programmers from the cargo-cultists. That worked great until we built a machine that eats LeetCode for breakfast.</li>
+  </ol>
+  <p>Here’s what I’m doing instead: I give the candidate a one-paragraph (or shorter) description of a real feature we’re about to build (or already built—doesn’t matter). Then we just… talk.</p>
+  <blockquote>
+    “Build a dark-mode toggle that survives page reloads.”<br>
+    <strong>Good candidate:</strong> “Per user or global? LocalStorage or backend? What breaks in Safari?”
+  </blockquote>
+  <p>No code. Just conversation.</p>
+  <p>In 45 minutes you learn everything you need to know:</p>
+  <ul>
+    <li>Do they ask good clarifying questions when requirements are fuzzy? (They always are.)</li>
+    <li>Can they turn vague user needs into sensible abstractions?</li>
+    <li>Do they naturally think about trade-offs, scaling, ops, testing, security, telemetry, accessibility?</li>
+    <li>When they get stuck, do they stay curious and playful or do they shut down?</li>
+    <li>Can they explain complex ideas like they’re talking to their smart non-technical friend?</li>
+    <li>What’s their vibe? Is this someone you’d enjoy being stuck in a war room with?</li>
+  </ul>
+  <p>That’s it. That’s the interview.</p>
+  <p>Back in the day we used pointer questions as a proxy for all of this. An entire grinding industry grew up around beating the proxy.  The proxy questions escalated to be ever more impractical. Then ChatGPT walked in and shot the proxy dead.</p>
+  <p>RIP the golden calf of "<a href="https://www.thesecretdeveloper.com/blog/why-google-wouldnt-hire-max-howell-and-why-thats-a-good-thing-for-software" target="_blank">reverse a binary tree on a whiteboard</a>."</p>
+  <hr>
+  <p><small><i>Jacob writes at <a href="http://jacoblog.com">jacoblog.com</a>. This is draft #3: Grok supplied the snark, OpenAI supplied the bugs.</i></small></p>
+  </main>
+
+  <!-- Optional: Giscus Comment Section -->
+  <!--
+  <script src="https://giscus.app/client.js"
+    data-repo="yourusername/jacoblog"
+    data-repo-id="REPO_ID"
+    data-category="Post Comments"
+    data-category-id="CATEGORY_ID"
+    data-mapping="pathname"
+    data-reactions-enabled="1"
+    data-theme="light"
+    crossorigin="anonymous"
+    async>
+  </script>
+  -->
+</body>
+</html>

@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Afterglow — Spaced Repetition</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg-deep:#10132a;
+    --bg-panel:#171b36;
+    --bg-panel-2:#1e2344;
+    --bg-raised:#242a4d;
+    --paper:#f5efe4;
+    --paper-dim:#e9e1d0;
+    --ink:#2a2416;
+    --text:#ede8da;
+    --text-dim:#9599b8;
+    --text-faint:#5c6088;
+    --amber:#e8a33d;
+    --amber-dim:#8a6528;
+    --teal:#5fbfb3;
+    --teal-dim:#356660;
+    --rose:#d97a86;
+    --line:#2c3157;
+    --shadow: 0 10px 30px rgba(0,0,0,0.35);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% -10%, #1c2352 0%, transparent 45%),
+      radial-gradient(circle at 100% 0%, #23204a 0%, transparent 40%),
+      var(--bg-deep);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+  }
+  h1,h2,h3,.display{font-family:'Fraunces',serif;}
+  .mono{font-family:'IBM Plex Mono',monospace;}
+  button{font-family:inherit;}
+  a{color:inherit;}
+
+  /* App shell */
+  #app{display:grid; grid-template-columns:260px 1fr; min-height:100vh;}
+  @media (max-width:860px){ #app{grid-template-columns:1fr;} #sidebar{position:static; order:2;} }
+
+  /* Sidebar */
+  #sidebar{
+    background:linear-gradient(180deg, var(--bg-panel), var(--bg-deep));
+    border-right:1px solid var(--line);
+    padding:24px 18px;
+    display:flex; flex-direction:column; gap:22px;
+  }
+  .home-link{
+    display:inline-flex; align-items:center; gap:4px; align-self:flex-start;
+    font-size:0.76rem; color:var(--text-dim); text-decoration:none; padding:2px 4px;
+    border-radius:6px; transition:color .15s, background .15s;
+  }
+  .home-link:hover{color:var(--amber); background:var(--bg-panel-2);}
+  .brand{display:flex; align-items:center; gap:10px; padding:0 4px;}
+  .brand .mark{
+    width:34px;height:34px;border-radius:50%;
+    background:radial-gradient(circle at 32% 30%, var(--amber), var(--amber-dim) 70%);
+    box-shadow:0 0 18px rgba(232,163,61,0.45);
+    flex-shrink:0;
+  }
+  .brand h1{font-size:1.25rem; margin:0; font-weight:600; letter-spacing:0.01em;}
+  .brand p{margin:0; font-size:0.72rem; color:var(--text-dim); letter-spacing:0.06em; text-transform:uppercase;}
+
+  .deck-section{display:flex; flex-direction:column; gap:8px;}
+  .deck-section .label{font-size:0.7rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-faint); padding:0 6px; margin-bottom:2px;}
+  .deck-item{
+    display:flex; align-items:center; justify-content:space-between; gap:8px;
+    padding:10px 12px; border-radius:10px; cursor:pointer;
+    border:1px solid transparent;
+    transition:background .15s, border-color .15s;
+  }
+  .deck-item:hover{background:var(--bg-panel-2);}
+  .deck-item.active{background:var(--bg-raised); border-color:var(--line);}
+  .deck-item .name{font-size:0.9rem; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .deck-item .meta{display:flex; align-items:center; gap:6px; flex-shrink:0;}
+  .pill{
+    font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:2px 7px; border-radius:20px;
+    background:var(--bg-panel); color:var(--text-dim); border:1px solid var(--line);
+  }
+  .pill.due{background:rgba(232,163,61,0.15); color:var(--amber); border-color:rgba(232,163,61,0.35);}
+
+  .ghost-btn{
+    background:none; border:1px dashed var(--line); color:var(--text-dim);
+    padding:9px 12px; border-radius:10px; font-size:0.83rem; cursor:pointer; text-align:left;
+    transition:border-color .15s, color .15s;
+  }
+  .ghost-btn:hover{border-color:var(--text-dim); color:var(--text);}
+
+  .sidebar-footer{margin-top:auto; display:flex; flex-direction:column; gap:6px;}
+  .sidebar-footer .tip{font-size:0.72rem; color:var(--text-faint); line-height:1.5; padding:0 4px;}
+
+  /* Main */
+  #main{padding:28px 36px 60px; max-width:1080px; width:100%; margin:0 auto;}
+  @media (max-width:640px){ #main{padding:20px 16px 50px;} }
+
+  .tabs{display:flex; gap:6px; margin-bottom:28px; border-bottom:1px solid var(--line); flex-wrap:wrap;}
+  .tab-btn{
+    background:none; border:none; color:var(--text-dim); padding:10px 16px; font-size:0.88rem;
+    cursor:pointer; position:relative; font-weight:500; letter-spacing:0.01em;
+  }
+  .tab-btn.active{color:var(--text);}
+  .tab-btn.active::after{
+    content:''; position:absolute; left:16px; right:16px; bottom:-1px; height:2px; background:var(--amber);
+  }
+  .tab-btn .badge{
+    display:inline-block; margin-left:6px; font-family:'IBM Plex Mono',monospace; font-size:0.68rem;
+    background:var(--amber); color:#2a1c05; padding:1px 6px; border-radius:20px; font-weight:600;
+  }
+
+  .panel{
+    background:var(--bg-panel); border:1px solid var(--line); border-radius:var(--radius);
+    padding:26px; box-shadow:var(--shadow);
+  }
+  .panel + .panel{margin-top:18px;}
+  .section-title{display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:16px;}
+  .section-title h2{margin:0; font-size:1.15rem; font-weight:600;}
+  .section-title .sub{font-size:0.8rem; color:var(--text-dim);}
+
+  /* Overview stats */
+  .stat-grid{display:grid; grid-template-columns:repeat(auto-fit, minmax(140px,1fr)); gap:14px; margin-bottom:22px;}
+  .stat-card{background:var(--bg-panel-2); border:1px solid var(--line); border-radius:12px; padding:16px 18px;}
+  .stat-card .num{font-family:'IBM Plex Mono',monospace; font-size:1.7rem; font-weight:600; color:var(--amber);}
+  .stat-card .num.teal{color:var(--teal);}
+  .stat-card .lbl{font-size:0.76rem; color:var(--text-dim); margin-top:2px;}
+
+  .forecast{display:flex; align-items:flex-end; gap:8px; height:110px; margin-top:6px;}
+  .forecast .bar-col{flex:1; display:flex; flex-direction:column; align-items:center; gap:6px; justify-content:flex-end; height:100%;}
+  .forecast .bar{width:100%; max-width:34px; background:linear-gradient(180deg, var(--amber), var(--amber-dim)); border-radius:5px 5px 3px 3px; min-height:3px;}
+  .forecast .day-lbl{font-size:0.66rem; color:var(--text-faint); font-family:'IBM Plex Mono',monospace;}
+
+  /* Orbit */
+  .orbit-wrap{display:flex; justify-content:center; padding:6px 0 4px;}
+  .orbit-legend{display:flex; flex-wrap:wrap; gap:14px; justify-content:center; margin-top:10px; font-size:0.72rem; color:var(--text-dim);}
+  .orbit-legend .dot{display:inline-block; width:8px; height:8px; border-radius:50%; margin-right:5px; vertical-align:middle;}
+
+  /* Review */
+  #review-area{display:flex; flex-direction:column; align-items:center; gap:20px;}
+  .flashcard{
+    width:100%; max-width:560px; min-height:260px; background:var(--paper); color:var(--ink);
+    border-radius:16px; padding:36px 32px; display:flex; flex-direction:column; justify-content:center;
+    box-shadow:0 18px 40px rgba(0,0,0,0.4), inset 0 0 0 1px rgba(0,0,0,0.05);
+    cursor:pointer; position:relative; text-align:center; gap:14px;
+  }
+  .flashcard .side-label{position:absolute; top:14px; left:18px; font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.08em; text-transform:uppercase; color:#9a8c6a;}
+  .flashcard .front-text{font-family:'Fraunces',serif; font-size:1.5rem; font-weight:500; line-height:1.4;}
+  .flashcard .back-text{font-family:'Fraunces',serif; font-size:1.25rem; font-weight:400; line-height:1.5; color:#3c3323;}
+  .flashcard hr{width:60px; border:none; border-top:2px solid #d8ccb2; margin:2px auto;}
+  .flashcard .tap-hint{position:absolute; bottom:14px; right:18px; font-size:0.7rem; color:#a89a76; font-family:'IBM Plex Mono',monospace;}
+
+  .rate-row{display:grid; grid-template-columns:repeat(4,1fr); gap:10px; width:100%; max-width:560px;}
+  .rate-btn{
+    padding:12px 6px; border-radius:10px; border:1px solid var(--line); cursor:pointer; background:var(--bg-panel-2);
+    color:var(--text); font-weight:600; font-size:0.85rem; display:flex; flex-direction:column; gap:3px; align-items:center;
+    transition:transform .1s, background .15s;
+  }
+  .rate-btn:hover{transform:translateY(-2px);}
+  .rate-btn .interval-preview{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; color:var(--text-dim); font-weight:400;}
+  .rate-btn.again{border-color:#5a2c33;} .rate-btn.again:hover{background:rgba(217,122,134,0.15);}
+  .rate-btn.hard{border-color:#5c4a26;} .rate-btn.hard:hover{background:rgba(200,150,60,0.12);}
+  .rate-btn.good{border-color:#2c5c50;} .rate-btn.good:hover{background:rgba(95,191,179,0.14);}
+  .rate-btn.easy{border-color:#2c4a5c;} .rate-btn.easy:hover{background:rgba(110,170,220,0.14);}
+
+  .empty-state{text-align:center; padding:50px 20px; color:var(--text-dim);}
+  .empty-state h3{color:var(--text); margin-bottom:8px;}
+  .empty-state .big-emoji{font-size:2.4rem; margin-bottom:14px;}
+
+  /* Add card form */
+  .field{display:flex; flex-direction:column; gap:6px; margin-bottom:16px;}
+  .field label{font-size:0.78rem; color:var(--text-dim); font-weight:500;}
+  textarea, input[type=text], select{
+    background:var(--bg-panel-2); border:1px solid var(--line); border-radius:10px; color:var(--text);
+    padding:11px 13px; font-family:'Inter',sans-serif; font-size:0.92rem; resize:vertical;
+  }
+  textarea:focus, input:focus, select:focus{outline:2px solid var(--amber); outline-offset:1px;}
+  .row{display:flex; gap:14px; flex-wrap:wrap;}
+  .row > *{flex:1; min-width:180px;}
+
+  .btn{
+    background:var(--amber); color:#2a1c05; border:none; padding:11px 20px; border-radius:10px;
+    font-weight:600; font-size:0.88rem; cursor:pointer; transition:filter .15s;
+  }
+  .btn:hover{filter:brightness(1.08);}
+  .btn.secondary{background:var(--bg-raised); color:var(--text); border:1px solid var(--line);}
+  .btn.danger{background:transparent; color:var(--rose); border:1px solid #5a2c33;}
+  .btn:disabled{opacity:.5; cursor:not-allowed;}
+  .btn-row{display:flex; gap:10px; flex-wrap:wrap; margin-top:6px;}
+
+  /* Browse table */
+  .search-bar{display:flex; gap:10px; margin-bottom:16px; flex-wrap:wrap;}
+  .search-bar input{flex:1; min-width:200px;}
+  table{width:100%; border-collapse:collapse; font-size:0.86rem;}
+  th{text-align:left; color:var(--text-faint); font-weight:500; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; padding:8px 10px; border-bottom:1px solid var(--line);}
+  td{padding:10px; border-bottom:1px solid var(--line); vertical-align:top;}
+  tr:hover td{background:rgba(255,255,255,0.02);}
+  .cell-text{max-width:220px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  .state-tag{font-family:'IBM Plex Mono',monospace; font-size:0.68rem; padding:2px 8px; border-radius:20px;}
+  .state-tag.new{background:rgba(149,153,184,0.15); color:var(--text-dim);}
+  .state-tag.learning{background:rgba(232,163,61,0.15); color:var(--amber);}
+  .state-tag.review{background:rgba(95,191,179,0.15); color:var(--teal);}
+  .icon-btn{background:none; border:none; color:var(--text-dim); cursor:pointer; padding:4px 6px; font-size:0.85rem;}
+  .icon-btn:hover{color:var(--text);}
+
+  /* IO */
+  .drop-zone{
+    border:1.5px dashed var(--line); border-radius:14px; padding:34px 20px; text-align:center; color:var(--text-dim);
+    transition:border-color .15s, background .15s; cursor:pointer;
+  }
+  .drop-zone.drag{border-color:var(--amber); background:rgba(232,163,61,0.06); color:var(--text);}
+  .code-preview{
+    background:#0c0e20; border:1px solid var(--line); border-radius:10px; padding:14px; font-family:'IBM Plex Mono',monospace;
+    font-size:0.75rem; max-height:220px; overflow:auto; white-space:pre-wrap; word-break:break-all; color:#9dd8cf;
+  }
+
+  .toast{
+    position:fixed; bottom:24px; left:50%; transform:translateX(-50%); background:var(--bg-raised);
+    border:1px solid var(--line); padding:12px 20px; border-radius:10px; font-size:0.85rem; box-shadow:var(--shadow);
+    opacity:0; pointer-events:none; transition:opacity .25s, transform .25s; z-index:100;
+  }
+  .toast.show{opacity:1; transform:translateX(-50%) translateY(-6px);}
+
+  .modal-backdrop{
+    position:fixed; inset:0; background:rgba(8,9,20,0.6); display:flex; align-items:center; justify-content:center;
+    z-index:200; padding:20px;
+  }
+  .modal{background:var(--bg-panel); border:1px solid var(--line); border-radius:14px; padding:24px; max-width:420px; width:100%; box-shadow:var(--shadow);}
+  .modal h3{margin-top:0;}
+
+  .kbd{font-family:'IBM Plex Mono',monospace; background:var(--bg-panel-2); border:1px solid var(--line); border-radius:5px; padding:1px 6px; font-size:0.75rem;}
+  ::selection{background:rgba(232,163,61,0.35);}
+  ::-webkit-scrollbar{width:10px; height:10px;}
+  ::-webkit-scrollbar-thumb{background:var(--bg-raised); border-radius:20px;}
+  ::-webkit-scrollbar-track{background:transparent;}
+</style>
+</head>
+<body>
+<div id="app">
+  <aside id="sidebar">
+    <a href="http://jacoblog.com" class="home-link">← jacoblog.com</a>
+    <div class="brand">
+      <div class="mark"></div>
+      <div>
+        <h1>Afterglow</h1>
+        <p>spaced repetition</p>
+      </div>
+    </div>
+
+    <div class="deck-section">
+      <div class="label">Decks</div>
+      <div id="deck-list"></div>
+      <button class="ghost-btn" id="new-deck-btn">+ New deck</button>
+    </div>
+
+    <div class="sidebar-footer">
+      <p class="tip">Nothing is saved automatically. Export your progress as JSON before you close the tab — and import it again next time to pick up right where you left off.</p>
+      <button class="ghost-btn" id="quick-export-btn">⬇ Quick export</button>
+    </div>
+  </aside>
+
+  <main id="main">
+    <nav class="tabs" id="tabs"></nav>
+    <div id="tab-content"></div>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+<div id="modal-root"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------------------------------------------------------------
+     CONSTANTS / ALGORITHM
+  --------------------------------------------------------------- */
+  const LEARNING_STEPS_MIN = [1, 10];      // minutes
+  const GRADUATING_DAYS = 1;
+  const EASY_DAYS = 4;
+  const MIN_EASE = 1.3;
+  const DEFAULT_EASE = 2.5;
+
+  const uid = (p) => p + '_' + Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
+
+  function addMinutes(date, m){ return new Date(date.getTime() + m*60000); }
+  function addDays(date, d){ return new Date(date.getTime() + d*86400000); }
+
+  // Returns the human preview string for what a rating WOULD do, without mutating.
+  function previewInterval(card, rating){
+    const sim = JSON.parse(JSON.stringify(card));
+    applyReview(sim, rating, new Date(), true);
+    return sim.__previewLabel;
+  }
+
+  function fmtDuration(ms){
+    const min = ms/60000;
+    if(min < 60) return Math.round(min)+'m';
+    const hrs = min/60;
+    if(hrs < 24) return Math.round(hrs)+'h';
+    const days = hrs/24;
+    if(days < 30) return (days>=10?Math.round(days):Math.round(days*10)/10)+'d';
+    const months = days/30;
+    if(months < 12) return (months>=10?Math.round(months):Math.round(months*10)/10)+'mo';
+    return (Math.round(months/12*10)/10)+'y';
+  }
+
+  // Mutates card in place applying SM-2 / Anki-style scheduling.
+  function applyReview(card, rating, now, dryRun){
+    now = now || new Date();
+    if(card.state === 'new'){ card.state = 'learning'; card.learningStep = 0; }
+
+    let dueDate;
+
+    if(card.state === 'learning'){
+      if(rating === 'again'){
+        card.learningStep = 0;
+        dueDate = addMinutes(now, LEARNING_STEPS_MIN[0]);
+      } else if(rating === 'hard'){
+        dueDate = addMinutes(now, LEARNING_STEPS_MIN[card.learningStep]);
+      } else if(rating === 'good'){
+        const next = card.learningStep + 1;
+        if(next >= LEARNING_STEPS_MIN.length){
+          card.state = 'review';
+          card.interval = GRADUATING_DAYS;
+          card.ease = card.ease || DEFAULT_EASE;
+          dueDate = addDays(now, card.interval);
+        } else {
+          card.learningStep = next;
+          dueDate = addMinutes(now, LEARNING_STEPS_MIN[next]);
+        }
+      } else if(rating === 'easy'){
+        card.state = 'review';
+        card.interval = EASY_DAYS;
+        card.ease = card.ease || DEFAULT_EASE;
+        dueDate = addDays(now, card.interval);
+      }
+    } else { // review
+      card.ease = card.ease || DEFAULT_EASE;
+      card.interval = card.interval || 1;
+      if(rating === 'again'){
+        card.lapses = (card.lapses||0) + 1;
+        card.ease = Math.max(MIN_EASE, card.ease - 0.2);
+        card.state = 'learning';
+        card.learningStep = 0;
+        dueDate = addMinutes(now, LEARNING_STEPS_MIN[0]);
+      } else if(rating === 'hard'){
+        card.ease = Math.max(MIN_EASE, card.ease - 0.15);
+        card.interval = Math.max(card.interval * 1.2, card.interval + 1);
+        dueDate = addDays(now, card.interval);
+      } else if(rating === 'good'){
+        card.interval = Math.max(1, Math.round(card.interval * card.ease));
+        dueDate = addDays(now, card.interval);
+      } else if(rating === 'easy'){
+        card.ease += 0.15;
+        card.interval = Math.max(1, Math.round(card.interval * card.ease * 1.3));
+        dueDate = addDays(now, card.interval);
+      }
+    }
+
+    card.__previewLabel = fmtDuration(dueDate - now);
+    if(!dryRun){
+      card.due = dueDate.toISOString();
+      card.reps = (card.reps||0) + 1;
+      card.lastReviewed = now.toISOString();
+    }
+    return card;
+  }
+
+  /* ---------------------------------------------------------------
+     STATE  (in-memory only — persistence is via JSON import/export)
+  --------------------------------------------------------------- */
+  function seedState(){
+    const now = new Date();
+    const deckId = uid('deck');
+    const mk = (front, back, overrides) => Object.assign({
+      id: uid('card'), deckId, front, back, tags: [],
+      state:'new', learningStep:0, interval:0, ease:DEFAULT_EASE, reps:0, lapses:0,
+      due: now.toISOString(), lastReviewed:null, createdAt: now.toISOString()
+    }, overrides||{});
+    return {
+      version: 1,
+      activeDeckId: deckId,
+      activeTab: 'overview',
+      decks: [{id:deckId, name:'How this works', description:'A starter deck explaining spaced repetition.', createdAt: now.toISOString()}],
+      cards: [
+        mk('What does "spaced repetition" mean?', 'Reviewing information at increasing intervals, timed to land right before you\'d naturally forget it.'),
+        mk('Why do ratings like Again / Hard / Good / Easy matter?', 'They tell the algorithm how well you recalled the card, which decides how soon it comes back.'),
+        mk('What happens to a card\'s interval after an "Easy" review?', 'It grows faster than normal — the algorithm trusts you\'ll remember it for longer.'),
+        mk('What happens if you press "Again"?', 'The card resets into short learning steps and its ease is nudged down, so it resurfaces soon.'),
+        mk('Where is your progress stored in this app?', 'Nowhere automatically — export your deck as JSON to save it, and import it to pick up later.')
+      ],
+      reviewLog: []
+    };
+  }
+
+  let state = seedState();
+  let reviewQueue = [];       // ordered list of card ids for the current session
+  let currentCard = null;
+  let cardRevealed = false;
+
+  /* ---------------------------------------------------------------
+     HELPERS
+  --------------------------------------------------------------- */
+  function now(){ return new Date(); }
+  function cardsInDeck(deckId){ return state.cards.filter(c => c.deckId === deckId); }
+  function isDue(c){ return new Date(c.due) <= now(); }
+  function dueCount(deckId){ return cardsInDeck(deckId).filter(isDue).length; }
+  function totalDueCount(){ return state.cards.filter(isDue).length; }
+  function getDeck(id){ return state.decks.find(d=>d.id===id); }
+  function activeDeck(){ return getDeck(state.activeDeckId) || state.decks[0]; }
+
+  function toast(msg){
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.classList.add('show');
+    clearTimeout(toast._t);
+    toast._t = setTimeout(()=>t.classList.remove('show'), 2200);
+  }
+
+  function relativeDue(iso){
+    const diff = new Date(iso) - now();
+    if(diff <= 0) return 'due now';
+    return 'in ' + fmtDuration(diff);
+  }
+
+  /* Fisher-Yates shuffle — used to build the review queue so cards don't
+     always surface in creation order. Learning-state cards (short-interval,
+     already "in the pipe" today) are interleaved ahead of fresh/review cards
+     so nothing gets stuck behind a long queue. */
+  function shuffle(arr){
+    const a = arr.slice();
+    for(let i=a.length-1;i>0;i--){
+      const j = Math.floor(Math.random()*(i+1));
+      [a[i],a[j]] = [a[j],a[i]];
+    }
+    return a;
+  }
+
+  function buildReviewQueue(deckId){
+    const due = (deckId==='__all__' ? state.cards : cardsInDeck(deckId)).filter(isDue);
+    const learning = shuffle(due.filter(c=>c.state==='learning'));
+    const rest = shuffle(due.filter(c=>c.state!=='learning'));
+    // interleave: one learning card every 3 others, keeps learning cards moving
+    const merged = [];
+    let li=0, ri=0;
+    while(li<learning.length || ri<rest.length){
+      if(ri<rest.length){ merged.push(rest[ri++]); }
+      if(ri % 3 === 0 && li<learning.length){ merged.push(learning[li++]); }
+    }
+    while(li<learning.length) merged.push(learning[li++]);
+    return merged.map(c=>c.id);
+  }
+
+  /* ---------------------------------------------------------------
+     RENDER: SIDEBAR
+  --------------------------------------------------------------- */
+  function renderSidebar(){
+    const list = document.getElementById('deck-list');
+    list.innerHTML = '';
+    state.decks.forEach(d=>{
+      const due = dueCount(d.id);
+      const el = document.createElement('div');
+      el.className = 'deck-item' + (d.id===state.activeDeckId ? ' active':'');
+      el.innerHTML = `<span class="name">${escapeHtml(d.name)}</span>
+        <span class="meta">
+          <span class="pill">${cardsInDeck(d.id).length}</span>
+          ${due>0?`<span class="pill due">${due} due</span>`:''}
+        </span>`;
+      el.onclick = ()=>{ state.activeDeckId = d.id; resetReviewSession(); render(); };
+      list.appendChild(el);
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     TABS
+  --------------------------------------------------------------- */
+  const TABS = [
+    {id:'overview', label:'Overview'},
+    {id:'review', label:'Review', badge:()=>totalDueCount()},
+    {id:'add', label:'Add card'},
+    {id:'browse', label:'Browse'},
+    {id:'io', label:'Import / Export'}
+  ];
+
+  function renderTabs(){
+    const nav = document.getElementById('tabs');
+    nav.innerHTML='';
+    TABS.forEach(t=>{
+      const btn = document.createElement('button');
+      btn.className = 'tab-btn' + (state.activeTab===t.id?' active':'');
+      const badge = t.badge ? t.badge() : 0;
+      btn.innerHTML = t.label + (badge>0?`<span class="badge">${badge}</span>`:'');
+      btn.onclick = ()=>{ state.activeTab = t.id; render(); };
+      nav.appendChild(btn);
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     OVERVIEW TAB
+  --------------------------------------------------------------- */
+  function renderOverview(container){
+    const totalCards = state.cards.length;
+    const dueToday = totalDueCount();
+    const mature = state.cards.filter(c=>c.state==='review' && c.interval>=21).length;
+    const reviewsLogged = state.reviewLog.length;
+
+    // streak: count consecutive days (including today) with at least one logged review
+    let streak = 0;
+    {
+      const days = new Set(state.reviewLog.map(r=> new Date(r.date).toDateString()));
+      let cursor = new Date();
+      while(days.has(cursor.toDateString())){ streak++; cursor = addDays(cursor, -1); }
+    }
+
+    const wrap = document.createElement('div');
+
+    const stat = document.createElement('div');
+    stat.className='panel';
+    stat.innerHTML = `
+      <div class="section-title"><h2>Deck orbit</h2><span class="sub">${escapeHtml(activeDeck()?activeDeck().name:'All decks')}</span></div>
+      <div class="stat-grid">
+        <div class="stat-card"><div class="num">${totalCards}</div><div class="lbl">Total cards</div></div>
+        <div class="stat-card"><div class="num ${dueToday>0?'':'teal'}">${dueToday}</div><div class="lbl">Due right now</div></div>
+        <div class="stat-card"><div class="num teal">${mature}</div><div class="lbl">Mature (21d+)</div></div>
+        <div class="stat-card"><div class="num">${streak}</div><div class="lbl">Day streak</div></div>
+      </div>
+      <div class="orbit-wrap" id="orbit-holder"></div>
+      <div class="orbit-legend">
+        <span><span class="dot" style="background:#8f93b8"></span>New</span>
+        <span><span class="dot" style="background:var(--amber)"></span>Learning / due</span>
+        <span><span class="dot" style="background:var(--teal)"></span>Scheduled ahead</span>
+      </div>
+    `;
+    wrap.appendChild(stat);
+
+    const forecastPanel = document.createElement('div');
+    forecastPanel.className='panel';
+    const days = [];
+    for(let i=0;i<7;i++){
+      const dayStart = addDays(new Date(now().toDateString()), i);
+      const dayEnd = addDays(dayStart,1);
+      const count = state.cards.filter(c=>{ const d=new Date(c.due); return d>=dayStart && d<dayEnd; }).length;
+      days.push({label: i===0?'Today': dayStart.toLocaleDateString(undefined,{weekday:'short'}), count});
+    }
+    const maxCount = Math.max(1, ...days.map(d=>d.count));
+    forecastPanel.innerHTML = `
+      <div class="section-title"><h2>Next 7 days</h2><span class="sub">${reviewsLogged} reviews logged all-time</span></div>
+      <div class="forecast">
+        ${days.map(d=>`<div class="bar-col"><div class="mono" style="font-size:.68rem;color:var(--text-dim)">${d.count||''}</div><div class="bar" style="height:${Math.max(4,(d.count/maxCount)*90)}px"></div><div class="day-lbl">${d.label}</div></div>`).join('')}
+      </div>
+    `;
+    wrap.appendChild(forecastPanel);
+
+    container.appendChild(wrap);
+    drawOrbit(document.getElementById('orbit-holder'));
+  }
+
+  function drawOrbit(holder){
+    const size = 340;
+    const cx = size/2, cy = size/2;
+    const ringDefs = [
+      {label:'new', maxDays:0},
+      {label:'<1d', maxDays:1},
+      {label:'3d', maxDays:3},
+      {label:'1w', maxDays:7},
+      {label:'2w', maxDays:14},
+      {label:'1mo', maxDays:30},
+      {label:'3mo+', maxDays:99999},
+    ];
+    const maxR = size/2 - 18;
+    const ringR = ringDefs.map((_,i)=> 22 + (i)*(maxR-22)/(ringDefs.length-1));
+
+    const cards = activeDeck() ? cardsInDeck(state.activeDeckId) : state.cards;
+
+    let svg = `<svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}">`;
+    ringR.forEach(r=>{
+      svg += `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="#2c3157" stroke-width="1"/>`;
+    });
+    svg += `<circle cx="${cx}" cy="${cy}" r="3" fill="#8a6528"/>`;
+
+    cards.forEach((c,idx)=>{
+      let ringIdx = 0;
+      const days = c.state==='new'?0: (c.interval||0);
+      for(let i=0;i<ringDefs.length;i++){ if(days<=ringDefs[i].maxDays || i===ringDefs.length-1){ ringIdx=i; break; } }
+      const r = ringR[ringIdx] + (((idx*37)%9)-4); // slight jitter so dots don't stack
+      const angle = ((idx * 137.508) % 360) * Math.PI/180; // golden-angle spread
+      const x = cx + r*Math.cos(angle);
+      const y = cy + r*Math.sin(angle);
+      let color = '#8f93b8';
+      if(c.state==='learning' || (c.state==='review' && isDue(c))) color = 'var(--amber)'.includes('var')? '#e8a33d' : '#e8a33d';
+      else if(c.state==='review') color = '#5fbfb3';
+      svg += `<circle cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="4.5" fill="${color}" opacity="0.92"><title>${escapeHtml(c.front.slice(0,60))}</title></circle>`;
+    });
+    svg += `</svg>`;
+    holder.innerHTML = svg;
+  }
+
+  /* ---------------------------------------------------------------
+     REVIEW TAB
+  --------------------------------------------------------------- */
+  let reviewSessionDeckId = null;
+  function renderReview(container){
+    const scope = state.activeDeckId; // review the active deck only
+    if(!currentCard && reviewSessionDeckId !== scope){
+      reviewSessionDeckId = scope;
+      reviewQueue = buildReviewQueue(scope);
+      advanceQueue();
+    }
+
+    const panel = document.createElement('div');
+    panel.className='panel';
+
+    if(!currentCard){
+      panel.innerHTML = `
+        <div class="empty-state">
+          <div class="big-emoji">✺</div>
+          <h3>Nothing due in "${escapeHtml(activeDeck()?activeDeck().name:'this deck')}"</h3>
+          <p>Cards will surface here as they come due. Add a few more, or check another deck.</p>
+        </div>`;
+      container.appendChild(panel);
+      return;
+    }
+
+    const deckName = getDeck(currentCard.deckId)?.name || '';
+    panel.innerHTML = `<div class="section-title"><h2>Review</h2><span class="sub">${reviewQueue.length+1} left in ${escapeHtml(deckName)}</span></div>`;
+
+    const area = document.createElement('div');
+    area.id='review-area';
+
+    const card = document.createElement('div');
+    card.className='flashcard';
+    card.innerHTML = `
+      <span class="side-label">${cardRevealed?'answer':'question'}</span>
+      <div class="front-text">${escapeHtml(currentCard.front)}</div>
+      ${cardRevealed?`<hr/><div class="back-text">${escapeHtml(currentCard.back)}</div>`:''}
+      <span class="tap-hint">${cardRevealed? '' : 'tap to reveal · space'}</span>
+    `;
+    card.onclick = ()=>{ if(!cardRevealed){ cardRevealed=true; render(); } };
+    area.appendChild(card);
+
+    if(cardRevealed){
+      const row = document.createElement('div');
+      row.className='rate-row';
+      const ratings = [
+        {k:'again', lbl:'Again', cls:'again'},
+        {k:'hard', lbl:'Hard', cls:'hard'},
+        {k:'good', lbl:'Good', cls:'good'},
+        {k:'easy', lbl:'Easy', cls:'easy'}
+      ];
+      ratings.forEach(r=>{
+        const b = document.createElement('button');
+        b.className = 'rate-btn '+r.cls;
+        b.innerHTML = `${r.lbl}<span class="interval-preview">${previewInterval(currentCard, r.k)}</span>`;
+        b.onclick = ()=> rate(r.k);
+        row.appendChild(b);
+      });
+      area.appendChild(row);
+    } else {
+      const hint = document.createElement('p');
+      hint.style.cssText='color:var(--text-faint);font-size:0.78rem;';
+      hint.textContent = 'Think of your answer, then reveal to rate how it went.';
+      area.appendChild(hint);
+    }
+
+    panel.appendChild(area);
+    container.appendChild(panel);
+  }
+
+  function resetReviewSession(){ reviewSessionDeckId = null; currentCard = null; reviewQueue = []; }
+
+  function advanceQueue(){
+    cardRevealed = false;
+    const nextId = reviewQueue.shift();
+    currentCard = nextId ? state.cards.find(c=>c.id===nextId) : null;
+  }
+
+  function rate(ratingKey){
+    applyReview(currentCard, ratingKey, now(), false);
+    state.reviewLog.push({cardId: currentCard.id, date: now().toISOString(), rating: ratingKey, interval: currentCard.interval});
+    advanceQueue();
+    render();
+  }
+
+  /* ---------------------------------------------------------------
+     ADD CARD TAB
+  --------------------------------------------------------------- */
+  function renderAdd(container){
+    const panel = document.createElement('div');
+    panel.className='panel';
+    panel.innerHTML = `
+      <div class="section-title"><h2>Add a card</h2><span class="sub">to ${escapeHtml(activeDeck()?activeDeck().name:'—')}</span></div>
+      <div class="field">
+        <label for="f-deck">Deck</label>
+        <select id="f-deck"></select>
+      </div>
+      <div class="field">
+        <label for="f-front">Front (question / prompt)</label>
+        <textarea id="f-front" rows="3" placeholder="What is spaced repetition?"></textarea>
+      </div>
+      <div class="field">
+        <label for="f-back">Back (answer)</label>
+        <textarea id="f-back" rows="3" placeholder="A technique for reviewing material at increasing intervals..."></textarea>
+      </div>
+      <div class="field">
+        <label for="f-tags">Tags (comma separated, optional)</label>
+        <input type="text" id="f-tags" placeholder="chapter-1, vocab" />
+      </div>
+      <div class="btn-row">
+        <button class="btn" id="add-save">Add card</button>
+        <button class="btn secondary" id="add-save-another">Add & add another</button>
+      </div>
+    `;
+    container.appendChild(panel);
+
+    const deckSel = panel.querySelector('#f-deck');
+    state.decks.forEach(d=>{
+      const opt = document.createElement('option');
+      opt.value = d.id; opt.textContent = d.name;
+      if(d.id === state.activeDeckId) opt.selected = true;
+      deckSel.appendChild(opt);
+    });
+
+    function doAdd(clearOnly){
+      const front = panel.querySelector('#f-front').value.trim();
+      const back = panel.querySelector('#f-back').value.trim();
+      const deckId = deckSel.value;
+      const tags = panel.querySelector('#f-tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+      if(!front || !back){ toast('Both sides need text.'); return; }
+      state.cards.push({
+        id: uid('card'), deckId, front, back, tags,
+        state:'new', learningStep:0, interval:0, ease:DEFAULT_EASE, reps:0, lapses:0,
+        due: now().toISOString(), lastReviewed:null, createdAt: now().toISOString()
+      });
+      toast('Card added.');
+      state.activeDeckId = deckId;
+      resetReviewSession();
+      if(clearOnly){
+        panel.querySelector('#f-front').value='';
+        panel.querySelector('#f-back').value='';
+        panel.querySelector('#f-tags').value='';
+        panel.querySelector('#f-front').focus();
+        renderSidebar(); renderTabs();
+      } else {
+        render();
+      }
+    }
+    panel.querySelector('#add-save').onclick = ()=>doAdd(false);
+    panel.querySelector('#add-save-another').onclick = ()=>doAdd(true);
+  }
+
+  /* ---------------------------------------------------------------
+     BROWSE TAB
+  --------------------------------------------------------------- */
+  let browseQuery = '';
+  function renderBrowse(container){
+    const panel = document.createElement('div');
+    panel.className='panel';
+    const cards = cardsInDeck(state.activeDeckId)
+      .filter(c => !browseQuery || (c.front+c.back+c.tags.join(' ')).toLowerCase().includes(browseQuery.toLowerCase()))
+      .sort((a,b)=> new Date(a.due) - new Date(b.due));
+
+    panel.innerHTML = `
+      <div class="section-title"><h2>Browse — ${escapeHtml(activeDeck()?activeDeck().name:'')}</h2><span class="sub">${cards.length} card${cards.length===1?'':'s'}</span></div>
+      <div class="search-bar">
+        <input type="text" id="browse-search" placeholder="Search front, back, or tags…" value="${escapeHtml(browseQuery)}"/>
+        <button class="btn secondary" id="rename-deck-btn">Rename deck</button>
+        <button class="btn danger" id="delete-deck-btn">Delete deck</button>
+      </div>
+    `;
+    const tableWrap = document.createElement('div');
+    if(cards.length===0){
+      tableWrap.innerHTML = `<div class="empty-state"><div class="big-emoji">◌</div><h3>No cards yet</h3><p>Use "Add card" to start building this deck, or import a JSON file.</p></div>`;
+    } else {
+      const table = document.createElement('table');
+      table.innerHTML = `<thead><tr><th>Front</th><th>Back</th><th>State</th><th>Due</th><th>Ease</th><th></th></tr></thead>`;
+      const tbody = document.createElement('tbody');
+      cards.forEach(c=>{
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
+          <td class="cell-text">${escapeHtml(c.front)}</td>
+          <td class="cell-text">${escapeHtml(c.back)}</td>
+          <td><span class="state-tag ${c.state}">${c.state}</span></td>
+          <td class="mono" style="font-size:.78rem;">${relativeDue(c.due)}</td>
+          <td class="mono" style="font-size:.78rem;">${(c.ease||DEFAULT_EASE).toFixed(2)}</td>
+          <td>
+            <button class="icon-btn" title="Edit" data-act="edit">✎</button>
+            <button class="icon-btn" title="Reset progress" data-act="reset">↺</button>
+            <button class="icon-btn" title="Delete" data-act="del">✕</button>
+          </td>
+        `;
+        tr.querySelector('[data-act=edit]').onclick = ()=> openEditModal(c.id);
+        tr.querySelector('[data-act=reset]').onclick = ()=>{
+          Object.assign(c, {state:'new', learningStep:0, interval:0, ease:DEFAULT_EASE, reps:0, lapses:0, due:now().toISOString(), lastReviewed:null});
+          resetReviewSession();
+          toast('Progress reset.'); render();
+        };
+        tr.querySelector('[data-act=del]').onclick = ()=>{
+          state.cards = state.cards.filter(x=>x.id!==c.id);
+          resetReviewSession();
+          toast('Card deleted.'); render();
+        };
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      tableWrap.appendChild(table);
+    }
+    panel.appendChild(tableWrap);
+    container.appendChild(panel);
+
+    panel.querySelector('#browse-search').oninput = (e)=>{ browseQuery = e.target.value; renderBrowseOnly(); };
+    panel.querySelector('#rename-deck-btn').onclick = ()=>{
+      const d = activeDeck();
+      const name = prompt('Rename deck', d.name);
+      if(name && name.trim()){ d.name = name.trim(); render(); }
+    };
+    panel.querySelector('#delete-deck-btn').onclick = ()=>{
+      if(state.decks.length===1){ toast("Can't delete your only deck."); return; }
+      if(!confirm(`Delete "${activeDeck().name}" and all its cards? This can't be undone.`)) return;
+      const id = state.activeDeckId;
+      state.decks = state.decks.filter(d=>d.id!==id);
+      state.cards = state.cards.filter(c=>c.deckId!==id);
+      state.activeDeckId = state.decks[0].id;
+      resetReviewSession();
+      toast('Deck deleted.'); render();
+    };
+  }
+  function renderBrowseOnly(){
+    const c = document.getElementById('tab-content');
+    c.innerHTML=''; renderBrowse(c);
+  }
+
+  function openEditModal(cardId){
+    const c = state.cards.find(x=>x.id===cardId);
+    const root = document.getElementById('modal-root');
+    root.innerHTML = `
+      <div class="modal-backdrop" id="modal-bg">
+        <div class="modal">
+          <h3>Edit card</h3>
+          <div class="field"><label>Front</label><textarea id="e-front" rows="3">${escapeHtml(c.front)}</textarea></div>
+          <div class="field"><label>Back</label><textarea id="e-back" rows="3">${escapeHtml(c.back)}</textarea></div>
+          <div class="field"><label>Tags</label><input type="text" id="e-tags" value="${escapeHtml(c.tags.join(', '))}"/></div>
+          <div class="btn-row">
+            <button class="btn" id="e-save">Save</button>
+            <button class="btn secondary" id="e-cancel">Cancel</button>
+          </div>
+        </div>
+      </div>`;
+    document.getElementById('modal-bg').onclick = (e)=>{ if(e.target.id==='modal-bg') root.innerHTML=''; };
+    document.getElementById('e-cancel').onclick = ()=> root.innerHTML='';
+    document.getElementById('e-save').onclick = ()=>{
+      c.front = document.getElementById('e-front').value.trim();
+      c.back = document.getElementById('e-back').value.trim();
+      c.tags = document.getElementById('e-tags').value.split(',').map(s=>s.trim()).filter(Boolean);
+      root.innerHTML=''; toast('Card updated.'); render();
+    };
+  }
+
+  /* ---------------------------------------------------------------
+     IMPORT / EXPORT TAB
+  --------------------------------------------------------------- */
+  function buildExportPayload(){
+    return {
+      version: 1,
+      app: 'afterglow-srs',
+      exportedAt: now().toISOString(),
+      decks: state.decks,
+      cards: state.cards,
+      reviewLog: state.reviewLog
+    };
+  }
+
+  function doExport(){
+    const payload = buildExportPayload();
+    const blob = new Blob([JSON.stringify(payload, null, 2)], {type:'application/json'});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const stamp = now().toISOString().slice(0,10);
+    a.href = url; a.download = `afterglow-deck-${stamp}.json`;
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    toast('Deck exported.');
+  }
+
+  function importFromText(text){
+    let data;
+    try{ data = JSON.parse(text); }
+    catch(e){ toast('That file isn\'t valid JSON.'); return; }
+    if(!data || !Array.isArray(data.cards) || !Array.isArray(data.decks)){
+      toast('This JSON doesn\'t look like an Afterglow export.'); return;
+    }
+    const mode = state.cards.length>0 || state.decks.length>1 ? confirm(
+      'Replace your current decks with this file?\nOK = replace everything · Cancel = merge as new decks'
+    ) : true;
+
+    if(mode){
+      state.decks = data.decks;
+      state.cards = data.cards;
+      state.reviewLog = data.reviewLog || [];
+      state.activeDeckId = data.decks[0]?.id || state.activeDeckId;
+    } else {
+      // merge: remap ids to avoid collisions
+      const idMap = {};
+      const newDecks = data.decks.map(d=>{ const nid = uid('deck'); idMap[d.id]=nid; return Object.assign({}, d, {id:nid, name: d.name + ' (imported)'}); });
+      const newCards = data.cards.map(c=> Object.assign({}, c, {id: uid('card'), deckId: idMap[c.deckId] || newDecks[0].id}));
+      state.decks = state.decks.concat(newDecks);
+      state.cards = state.cards.concat(newCards);
+      state.activeDeckId = newDecks[0].id;
+    }
+    resetReviewSession();
+    toast('Import complete.');
+    render();
+  }
+
+  function renderIO(container){
+    const panel = document.createElement('div');
+    panel.className='panel';
+    panel.innerHTML = `
+      <div class="section-title"><h2>Export</h2><span class="sub">everything, including scheduling state</span></div>
+      <p style="color:var(--text-dim); font-size:0.86rem; line-height:1.6;">
+        Exporting writes out every deck and card exactly as scheduled right now — due dates, ease factors,
+        intervals and review history all included, so importing it back later restores your progress precisely
+        rather than resetting the clock. Review order itself isn't stored: each session reshuffles which due
+        cards come first (learning-stage cards interleaved in), so nothing gets stale from always reviewing
+        top-to-bottom.
+      </p>
+      <div class="btn-row"><button class="btn" id="export-btn">Export deck as JSON</button></div>
+      <details style="margin-top:16px;"><summary style="cursor:pointer;color:var(--text-dim);font-size:0.82rem;">Preview JSON</summary>
+        <div class="code-preview" style="margin-top:10px;">${escapeHtml(JSON.stringify(buildExportPayload(), null, 2).slice(0,4000))}</div>
+      </details>
+    `;
+    container.appendChild(panel);
+    panel.querySelector('#export-btn').onclick = doExport;
+
+    const importPanel = document.createElement('div');
+    importPanel.className='panel';
+    importPanel.innerHTML = `
+      <div class="section-title"><h2>Import</h2><span class="sub">.json file</span></div>
+      <div class="drop-zone" id="drop-zone">
+        <p>Drop a JSON file here, or click to choose one.</p>
+        <input type="file" accept="application/json" id="file-input" style="display:none;"/>
+      </div>
+    `;
+    container.appendChild(importPanel);
+
+    const dz = importPanel.querySelector('#drop-zone');
+    const fi = importPanel.querySelector('#file-input');
+    dz.onclick = ()=> fi.click();
+    fi.onchange = ()=>{ if(fi.files[0]) fi.files[0].text().then(importFromText); };
+    ['dragenter','dragover'].forEach(ev=> dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.add('drag'); }));
+    ['dragleave','drop'].forEach(ev=> dz.addEventListener(ev, e=>{ e.preventDefault(); dz.classList.remove('drag'); }));
+    dz.addEventListener('drop', e=>{
+      const f = e.dataTransfer.files[0];
+      if(f) f.text().then(importFromText);
+    });
+  }
+
+  /* ---------------------------------------------------------------
+     UTIL
+  --------------------------------------------------------------- */
+  function escapeHtml(s){
+    return String(s==null?'':s).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+  }
+
+  /* ---------------------------------------------------------------
+     ROOT RENDER
+  --------------------------------------------------------------- */
+  function render(){
+    renderSidebar();
+    renderTabs();
+    const content = document.getElementById('tab-content');
+    content.innerHTML = '';
+    if(state.activeTab === 'review'){
+      // don't reset queue on every render tick — only when switching into the tab freshly
+    }
+    switch(state.activeTab){
+      case 'overview': renderOverview(content); break;
+      case 'review': renderReview(content); break;
+      case 'add': renderAdd(content); break;
+      case 'browse': renderBrowse(content); break;
+      case 'io': renderIO(content); break;
+    }
+  }
+
+  document.getElementById('new-deck-btn').onclick = ()=>{
+    const name = prompt('Name your new deck', 'Untitled deck');
+    if(!name) return;
+    const d = {id: uid('deck'), name: name.trim() || 'Untitled deck', description:'', createdAt: now().toISOString()};
+    state.decks.push(d);
+    state.activeDeckId = d.id;
+    render();
+  };
+  document.getElementById('quick-export-btn').onclick = doExport;
+
+  document.addEventListener('keydown', (e)=>{
+    if(state.activeTab !== 'review') return;
+    if(document.activeElement && ['TEXTAREA','INPUT'].includes(document.activeElement.tagName)) return;
+    if(e.code === 'Space'){ e.preventDefault(); if(!cardRevealed && currentCard){ cardRevealed=true; render(); } return; }
+    if(!cardRevealed || !currentCard) return;
+    const map = {'1':'again','2':'hard','3':'good','4':'easy'};
+    if(map[e.key]){ rate(map[e.key]); }
+  });
+
+  // reset review session whenever the active deck changes via a fresh queue build
+  const origRenderReview = renderReview;
+
+  render();
+})();
+</script>
+</body>
+</html>
